@@ -7,7 +7,7 @@
        "magento/module-integration": "2.0.0"
     },
     "type": "magento2-module",
-    "version": "1.0.2",
+    "version": "2.0",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
