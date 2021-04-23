@@ -13,5 +13,6 @@
        "psr-4": {
           "Impact\\ImpactIntegration\\": ""
        }
-    }
+    },
+    "minimum-stability": "dev"
  }
