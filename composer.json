@@ -1,5 +1,5 @@
 {
-    "name": "Impact_ImpactIntegration",
+    "name": "Impact/ImpactIntegration",
     "description": "Magento Impact Integration",
     "require": {
        "php": "~7.2.0|~7.3.0|~7.4.0",
