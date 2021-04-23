@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Impact
+ * @package Impact_ImpactIntegration
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:App/etc/routes.xsd">
+    <router id="admin">
+        <route id="impact_impactintegration" frontName="impact_impactintegration">
+            <module name="Impact_ImpactIntegration" before="Magento_Backend"/>
+        </route>
+    </router>
+</config>
