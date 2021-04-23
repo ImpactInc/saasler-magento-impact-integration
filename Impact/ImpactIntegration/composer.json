@@ -13,5 +13,11 @@
        "psr-4": {
           "Impact\\ImpactIntegration\\": ""
        }
-    }
+    },
+    "repositories": [
+      {
+         "type": "git",
+         "url": "https://github.com/saasler/saasler-magento-impact-integration.git"
+      }
+   ]
  }
