@@ -2,7 +2,7 @@
     "name": "Impact_ImpactIntegration",
     "description": "Magento Impact Integration",
     "require": {
-       "php": "~7.2.0|~7.3.0",
+       "php": "~7.2.0|~7.3.0|~7.4.0",
        "magento/framework": "2.0.0",
        "magento/module-integration": "2.0.0"
     },
