@@ -7,12 +7,13 @@
        "magento/module-integration": "2.0.0"
     },
     "type": "magento2-module",
-    "version": "2.0",
+    "version": "2.0.1",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
           "Impact\\ImpactIntegration\\": ""
        }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
  }
