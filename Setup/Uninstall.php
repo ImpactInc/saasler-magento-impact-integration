@@ -6,6 +6,7 @@ use impact\impactintegration\Service\ImpactApiService;
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Config\Model\ResourceModel\Config;
+use Magento\Framework\Setup\ModuleDataSetupInterface;
 
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
@@ -33,15 +34,19 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
      */
     protected $_resourceConfig;
 
+    private $setup;
+
     public function __construct(
         Config $resourceConfig,
         IntegrationServiceInterface $integrationService,
-        OauthServiceInterface $oauthService
+        OauthServiceInterface $oauthService,
+        ModuleDataSetupInterface $setup
     )
     {
         $this->_resourceConfig = $resourceConfig;
         $this->_integrationService = $integrationService;
         $this->oauthService = $oauthService;
+        $this->setup = $setup;
     }
     /**
      * Module uninstall code
@@ -60,29 +65,35 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             // Get accesstoken from integration
             $token = $this->oauthService->getAccessToken($integration->getConsumerId());
             $accessToken = $token->getToken();
-
+            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
             // Send request uninstall in saasler
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode([]));
+            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'si']));
             $response = $impactApiService->execute();
             
-            $setup->startSetup();
+           // $setup->startSetup();
             /**
              * Update the Head and Style in html head
              */
             // Get the current UTT            
-            $connection = $setup->getConnection();
+            $connection = $this->setup->getConnection();
             $select = $connection->select()
                                 ->from('core_config_data')
                                 ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/utt_default'");
             $rowCurrentUTT = $connection->fetchRow($select);
-            $currentUTT = $rowCurrentUTT['value'];
-            
+            $currentUTT = "";
+            if ($rowCurrentUTT) {
+                $currentUTT = $rowCurrentUTT['value'];
+            }
+           
             // Get the Head and Style in html head
             $select = $connection->select()
                                 ->from('core_config_data')
                                 ->where($connection->quoteIdentifier('path') . "= 'design/head/includes'");
             $rowHeadHTML = $connection->fetchRow($select);
-            $headHTML = $rowHeadHTML['value'];
+            $headHTML = "";
+            if ($rowHeadHTML) {
+                $headHTML = $rowHeadHTML['value'];
+            }
 
             // Update the Head and Style in html head
             $headHTMLWithOutUTT = str_replace($currentUTT, "", $headHTML);
@@ -97,10 +108,10 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             // Delete data on database
             $this->deleteImpactData();
 
-            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
+            
             // Uninstall logic here
 
-            $setup->endSetup();
+           // $setup->endSetup();
         }
     }
 
