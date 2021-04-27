@@ -1,5 +1,5 @@
 {
-    "name": "impact_impactintegration",
+    "name": "impact/impactintegration",
     "description": "Magento Impact Integration",
     "require": {
       "magento/module-integration": "2.0.0"
