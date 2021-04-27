@@ -62,7 +62,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 
         $setup->startSetup();
 
-        \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension');
+        \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
         // Uninstall logic here
 
         $setup->endSetup();
