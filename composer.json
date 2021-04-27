@@ -1,9 +1,6 @@
 {
     "name": "impact/impactintegration",
     "description": "Magento Impact Integration",
-    "require": {
-      "magento/module-integration": "2.0.0"
-    },
     "type": "magento2-module",
     "version": "2.0.3",
     "autoload": {
