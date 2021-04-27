@@ -57,7 +57,6 @@ class SalesOrderInvoicePay implements ObserverInterface
                     $response = $saaslerApiService->execute();
                     $responseBody = $response->getBody();
                     $responseContent = $responseBody->getContents();
-                    \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('row: ' . $conversion_url);
                 }
             }
         }

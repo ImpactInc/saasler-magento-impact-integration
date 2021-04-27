@@ -5,6 +5,7 @@ namespace impact\impactintegration\Setup;
 use impact\impactintegration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
+use Magento\Config\Model\ResourceModel\Config;
 
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
@@ -33,7 +34,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     protected $_resourceConfig;
 
     public function __construct(
-        \Magento\Config\Model\ResourceModel\Config $resourceConfig,
+        Config $resourceConfig,
         IntegrationServiceInterface $integrationService,
         OauthServiceInterface $oauthService
     )
@@ -53,19 +54,54 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         \Magento\Framework\Setup\SchemaSetupInterface $setup,
         \Magento\Framework\Setup\ModuleContextInterface $context
     ) {
-        $body = '';
-        // Get accesstoken from integration
-        $accessToken = $this->getAccessToken();     // Validar si el usuario activo la integracion
-        $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['deleted' => 'Si']));
-        $response = $impactApiService->execute();
-        $this->deleteImpactData();
+        // Validate if the integration was enabled
+        $integration = $this->_integrationService->findByName('impactintegration');
+        if (isset($integration) && $integration->getStatus()) {
+            // Get accesstoken from integration
+            $token = $this->oauthService->getAccessToken($integration->getConsumerId());
+            $accessToken = $token->getToken();
 
-        $setup->startSetup();
+            // Send request uninstall in saasler
+            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode([]));
+            $response = $impactApiService->execute();
+            
+            $setup->startSetup();
+            /**
+             * Update the Head and Style in html head
+             */
+            // Get the current UTT            
+            $connection = $setup->getConnection();
+            $select = $connection->select()
+                                ->from('core_config_data')
+                                ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/utt_default'");
+            $rowCurrentUTT = $connection->fetchRow($select);
+            $currentUTT = $rowCurrentUTT['value'];
+            
+            // Get the Head and Style in html head
+            $select = $connection->select()
+                                ->from('core_config_data')
+                                ->where($connection->quoteIdentifier('path') . "= 'design/head/includes'");
+            $rowHeadHTML = $connection->fetchRow($select);
+            $headHTML = $rowHeadHTML['value'];
 
-        \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
-        // Uninstall logic here
+            // Update the Head and Style in html head
+            $headHTMLWithOutUTT = str_replace($currentUTT, "", $headHTML);
+            // Insert core data
+            $this->_resourceConfig->saveConfig(
+                'design/head/includes',
+                $headHTMLWithOutUTT,
+                'stores',
+                1
+            );
 
-        $setup->endSetup();
+            // Delete data on database
+            $this->deleteImpactData();
+
+            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
+            // Uninstall logic here
+
+            $setup->endSetup();
+        }
     }
 
     /**
@@ -108,33 +144,10 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             'default',
             0
         );
-        // design/head/includes
-
-        /*$this->_resourceConfig->deleteConfig(
+        $this->_resourceConfig->deleteConfig(
             'impact_impactintegration/existing_customer/utt_default',
             'default',
             0
-        );*/
-        
-        
+        );
     } 
-
-    /**
-     * Get access token from Impact Integration
-     * 
-     * @return String
-     */
-    private function getAccessToken()
-    {
-        $accessToken = '';
-        // Get the Impact integration data
-        $integration = $this->_integrationService->findByName('impactintegration');
-        if (!$integration->getId()) {
-            throw new NoSuchEntityException(__('Cannot find Impact integration.'));
-        }
-        $consumerId = $integration->getConsumerId();
-        $token = $this->oauthService->getAccessToken($consumerId);
-        $accessToken = $token->getToken();
-        return $accessToken;
-    }
 }

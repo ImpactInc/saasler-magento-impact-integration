@@ -51,8 +51,6 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
                     $response = $saaslerApiService->execute();
                     $responseBody = $response->getBody();
                     $responseContent = $responseBody->getContents();
-                    \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('row creditmemo: ' . $refund_url);
-                    \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('row order id: ' . $incrementId);
                 }
             } 
         }

@@ -80,7 +80,6 @@ class ConfigChange implements ObserverInterface
         }
         // Get the Head and Style in html head
         $rowConfig = $this->getCoreCofigValue('design/head/includes');
-        \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info("is enabled".$this->helper->isEnabled());
         
         // Validate if module is enable
         if ($this->helper->isEnabled()) {
@@ -262,6 +261,8 @@ class ConfigChange implements ObserverInterface
     }
     /**
      * Flush cache
+     *  
+     *  @return void 
      */
     private function flushCache():void
     {

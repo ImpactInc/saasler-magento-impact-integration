@@ -9,7 +9,4 @@
     <event name="sales_order_creditmemo_refund">
         <observer name="webpos_sales_order_creditmemo_refund" instance="impact\impactintegration\Observer\SalesOrderCreditmemoRefund" />
     </event>
-    <event name="adminhtml_system_config_advanced_disableoutput_render_before">
-        <observer name="webpos_adminhtml_system_config_advanced_disableoutput_render_before" instance="impact\impactintegration\Observer\DisableoutputRenderBefore" />
-    </event>
 </config>

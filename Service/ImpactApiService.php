@@ -81,7 +81,6 @@ class ImpactApiService
             $request = new Request($this->method, $apiRequest, $headers, $this->body); 
             $response = $this->client->send($request, ['timeout' => 5]);
         } catch (GuzzleException $exception) {
-            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info($exception->getMessage());
             throw new NoSuchEntityException($exception->getMessage());
         }
         return $response; 
