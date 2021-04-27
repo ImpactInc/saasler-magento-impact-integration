@@ -1,15 +1,15 @@
 <?php
-namespace Impact\ImpactIntegration\Observer;
+namespace impact\impactintegration\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
-use Impact\ImpactIntegration\Service\ImpactApiService; 
+use impact\impactintegration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use Impact\ImpactIntegration\Helper\Data;
+use impact\impactintegration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
@@ -219,7 +219,7 @@ class ConfigChange implements ObserverInterface
     {
         $accessToken = '';
         // Get the Impact integration data
-        $integration = $this->_integrationService->findByName('ImpactIntegration');
+        $integration = $this->_integrationService->findByName('impactintegration');
         if (!$integration->getId()) {
             throw new NoSuchEntityException(__('Cannot find Impact integration.'));
         }

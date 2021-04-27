@@ -1,7 +1,7 @@
 var config = {
     map: {
         '*': {
-            hello:           'Impact_ImpactIntegration/js/hello',
+            hello:           'impact_impactintegration/js/hello',
         }
     }
 };

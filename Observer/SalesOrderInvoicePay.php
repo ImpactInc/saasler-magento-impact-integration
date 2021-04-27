@@ -1,12 +1,12 @@
 <?php
-namespace Impact\ImpactIntegration\Observer;
+namespace impact\impactintegration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use Impact\ImpactIntegration\Service\ImpactApiService; 
+use impact\impactintegration\Service\ImpactApiService; 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Stdlib\CookieManagerInterface;
-use Impact\ImpactIntegration\Helper\Data;
+use impact\impactintegration\Helper\Data;
 
 class SalesOrderInvoicePay implements ObserverInterface
 {   

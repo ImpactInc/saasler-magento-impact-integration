@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Impact
- * @package Impact_ImpactIntegration
+ * @package impact_impactintegration
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -15,7 +15,7 @@
         <section id="impact_impactintegration" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
             <label>Impact Settings</label>
             <tab>impact</tab>
-            <resource>Impact_ImpactIntegration::impact_impactintegration</resource>
+            <resource>impact_impactintegration::impact_impactintegration</resource>
             <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>General Configuration</label>
                 <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0">

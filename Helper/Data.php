@@ -1,6 +1,6 @@
 <?php
 
-namespace Impact\ImpactIntegration\Helper;
+namespace impact\impactintegration\Helper;
 
 use Magento\Store\Model\ScopeInterface;
 

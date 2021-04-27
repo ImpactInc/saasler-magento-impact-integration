@@ -1,6 +1,6 @@
 <?php
 
-namespace Impact\ImpactIntegration\Service;
+namespace impact\impactintegration\Service;
 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Config\Model\Config as SystemConfig;
@@ -66,7 +66,7 @@ class ImpactAuthService
     {
         $accessToken = '';
         // Get the Impact integration data
-        $integration = $this->_integrationService->findByName('ImpactIntegration');
+        $integration = $this->_integrationService->findByName('impactintegration');
         if (!$integration->getId()) {
             throw new NoSuchEntityException(__('Cannot find Impact integration.'));
         }

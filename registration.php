@@ -2,10 +2,10 @@
 /**
  * @author Impact
  * @copyright Copyright (c) 2021 Impact (https://impact.com/about/)
- * @package Impact_ImpactIntegration
+ * @package impact_impactintegration
  */
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'Impact_ImpactIntegration',
+    'impact_impactintegration',
     __DIR__
 );

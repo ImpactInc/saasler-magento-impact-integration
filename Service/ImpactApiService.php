@@ -1,12 +1,11 @@
 <?php
 
-namespace Impact\ImpactIntegration\Service;
+namespace impact\impactintegration\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\GuzzleException;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Impact\ImpactIntegration\Service\ImpactAuthService; 
 
 /**
  * Class ImpactApiService

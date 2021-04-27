@@ -1,19 +1,46 @@
 <?php
 
-namespace Impact\ImpactIntegration\Setup;
+namespace impact\impactintegration\Setup;
 
-use Impact\ImpactIntegration\Service\ImpactApiService; 
+use impact\impactintegration\Service\ImpactApiService; 
+use Magento\Integration\Api\IntegrationServiceInterface;
+use Magento\Integration\Api\OauthServiceInterface;
 
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
+     /**
+     * API request endpoint integration
+     */
+    const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
+
+     /**
+     * Integration service
+     *
+     * @var \Magento\Integration\Api\IntegrationServiceInterface
+     */
+    private $_integrationService;
+
+    /**
+     * Oauth Service Interface
+     *
+     * @var Magento\Integration\Api\OauthServiceInterface
+     */
+    private $oauthService;
+
     /**
      * @var \Magento\Config\Model\ResourceModel\Config
      */
     protected $_resourceConfig;
 
-    public function __construct(\Magento\Config\Model\ResourceModel\Config $resourceConfig)
+    public function __construct(
+        \Magento\Config\Model\ResourceModel\Config $resourceConfig,
+        IntegrationServiceInterface $integrationService,
+        OauthServiceInterface $oauthService
+    )
     {
         $this->_resourceConfig = $resourceConfig;
+        $this->_integrationService = $integrationService;
+        $this->oauthService = $oauthService;
     }
     /**
      * Module uninstall code
@@ -27,12 +54,15 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         \Magento\Framework\Setup\ModuleContextInterface $context
     ) {
         $body = '';
-        $impactApiService = new ImpactApiService('', static::API_ENDPOINT_UNINSTALL , 'DELETE', $body);
+        // Get accesstoken from integration
+        $accessToken = $this->getAccessToken();     // Validar si el usuario activo la integracion
+        $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['deleted' => 'Si']));
         $response = $impactApiService->execute();
         $this->deleteImpactData();
 
         $setup->startSetup();
 
+        \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension');
         // Uninstall logic here
 
         $setup->endSetup();
@@ -87,5 +117,24 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         );*/
         
         
-    }    
+    } 
+
+    /**
+     * Get access token from Impact Integration
+     * 
+     * @return String
+     */
+    private function getAccessToken()
+    {
+        $accessToken = '';
+        // Get the Impact integration data
+        $integration = $this->_integrationService->findByName('impactintegration');
+        if (!$integration->getId()) {
+            throw new NoSuchEntityException(__('Cannot find Impact integration.'));
+        }
+        $consumerId = $integration->getConsumerId();
+        $token = $this->oauthService->getAccessToken($consumerId);
+        $accessToken = $token->getToken();
+        return $accessToken;
+    }
 }

@@ -1,5 +1,5 @@
 <integrations>
-    <integration name="ImpactIntegration">
+    <integration name="impactintegration">
        <email>elias.orozco@koombea.com</email>
        <endpoint_url>https://saasler-magento-impact.herokuapp.com/auth/magento/callback</endpoint_url>
        <identity_link_url>https://saasler-magento-impact.herokuapp.com/sessions/new</identity_link_url>

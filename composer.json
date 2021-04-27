@@ -1,12 +1,15 @@
 {
-    "name": "impact/impactintegration",
+    "name": "impact_impactintegration",
     "description": "Magento Impact Integration",
+    "require": {
+      "magento/module-integration": "2.0.0"
+    },
     "type": "magento2-module",
     "version": "2.0.2",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
-          "Impact\\ImpactIntegration\\": ""
+          "impact\\impactintegration\\": ""
        }
     },
     "minimum-stability": "dev",

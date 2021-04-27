@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="admin_system_config_changed_section_impact_impactintegration">
-        <observer name="custom_admin_system_config_changed_section_impact_impactintegration" instance="Impact\ImpactIntegration\Observer\ConfigChange"/>
+        <observer name="custom_admin_system_config_changed_section_impact_impactintegration" instance="impact\impactintegration\Observer\ConfigChange"/>
     </event>
     <event name="sales_order_invoice_pay">
-        <observer name="webpos_sales_order_invoice_pay" instance="Impact\ImpactIntegration\Observer\SalesOrderInvoicePay" />
+        <observer name="webpos_sales_order_invoice_pay" instance="impact\impactintegration\Observer\SalesOrderInvoicePay" />
     </event> 
     <event name="sales_order_creditmemo_refund">
-        <observer name="webpos_sales_order_creditmemo_refund" instance="Impact\ImpactIntegration\Observer\SalesOrderCreditmemoRefund" />
+        <observer name="webpos_sales_order_creditmemo_refund" instance="impact\impactintegration\Observer\SalesOrderCreditmemoRefund" />
     </event>
     <event name="adminhtml_system_config_advanced_disableoutput_render_before">
-        <observer name="webpos_adminhtml_system_config_advanced_disableoutput_render_before" instance="Impact\ImpactIntegration\Observer\DisableoutputRenderBefore" />
+        <observer name="webpos_adminhtml_system_config_advanced_disableoutput_render_before" instance="impact\impactintegration\Observer\DisableoutputRenderBefore" />
     </event>
 </config>
