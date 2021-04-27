@@ -6,7 +6,7 @@
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
-          "impact\\impactintegration\\": ""
+          "impact\\impactintegration\\": "app/code/impact/module-impactintegration"
        }
     },
     "minimum-stability": "dev",
