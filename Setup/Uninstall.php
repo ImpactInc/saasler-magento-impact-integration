@@ -70,7 +70,6 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'si']));
             $response = $impactApiService->execute();
             
-           // $setup->startSetup();
             /**
              * Update the Head and Style in html head
              */
@@ -107,12 +106,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 
             // Delete data on database
             $this->deleteImpactData();
-
-            
-            // Uninstall logic here
-
-           // $setup->endSetup();
-        }
+       }
     }
 
     /**
