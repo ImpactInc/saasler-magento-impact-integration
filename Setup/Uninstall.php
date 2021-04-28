@@ -154,5 +154,10 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             'default',
             0
         );
+        $this->_resourceConfig->deleteConfig(
+            'impact_impactintegration/general/enabled',
+            'default',
+            0
+        );
     } 
 }
