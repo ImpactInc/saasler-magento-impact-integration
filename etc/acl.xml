@@ -2,7 +2,7 @@
 <!--
 /**
  * @author Impact
- * @package impact_impactintegration
+ * @package Impact_Integration
  */
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Acl/etc/acl.xsd">

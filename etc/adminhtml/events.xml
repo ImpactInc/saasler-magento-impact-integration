@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
-    <event name="admin_system_config_changed_section_impact_impactintegration">
-        <observer name="custom_admin_system_config_changed_section_impact_impactintegration" instance="impact\impactintegration\Observer\ConfigChange"/>
+    <event name="admin_system_config_changed_section_impact_integration">
+        <observer name="custom_admin_system_config_changed_section_impact_integration" instance="Impact\Integration\Observer\ConfigChange"/>
     </event>
     <event name="sales_order_invoice_pay">
-        <observer name="webpos_sales_order_invoice_pay" instance="impact\impactintegration\Observer\SalesOrderInvoicePay" />
+        <observer name="webpos_sales_order_invoice_pay" instance="Impact\Integration\Observer\SalesOrderInvoicePay" />
     </event> 
     <event name="sales_order_creditmemo_refund">
-        <observer name="webpos_sales_order_creditmemo_refund" instance="impact\impactintegration\Observer\SalesOrderCreditmemoRefund" />
+        <observer name="webpos_sales_order_creditmemo_refund" instance="Impact\Integration\Observer\SalesOrderCreditmemoRefund" />
     </event>
 </config>

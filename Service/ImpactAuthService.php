@@ -1,6 +1,6 @@
 <?php
 
-namespace impact\impactintegration\Service;
+namespace Impact\Integration\Service;
 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Config\Model\Config as SystemConfig;

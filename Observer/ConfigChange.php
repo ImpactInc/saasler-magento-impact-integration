@@ -1,15 +1,15 @@
 <?php
-namespace impact\impactintegration\Observer;
+namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
-use impact\impactintegration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use impact\impactintegration\Helper\Data;
+use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
@@ -119,14 +119,14 @@ class ConfigChange implements ObserverInterface
             $rowConversion = $this->validateSettingValue('conversion_url');
             if ($rowConversion) {
                 $this->_resourceConfig->deleteConfig(
-                    'impact_impactintegration/existing_customer/conversion_url',
+                    'impact_integration/existing_customer/conversion_url',
                     'default',
                     0
                 );
             }
             // Insert conversion url
             $this->_resourceConfig->saveConfig(
-                'impact_impactintegration/existing_customer/conversion_url',
+                'impact_integration/existing_customer/conversion_url',
                 $urls['conversion_url'],
                 'default',
                 0
@@ -136,14 +136,14 @@ class ConfigChange implements ObserverInterface
             $rowRefund = $this->validateSettingValue('refund_url');
             if ($rowRefund) {
                 $this->_resourceConfig->deleteConfig(
-                    'impact_impactintegration/existing_customer/refund_url',
+                    'impact_integration/existing_customer/refund_url',
                     'default',
                     0
                 );
             } 
             // Insert refund url
             $this->_resourceConfig->saveConfig(
-                'impact_impactintegration/existing_customer/refund_url',
+                'impact_integration/existing_customer/refund_url',
                 $urls['refund_url'],
                 'default',
                 0
@@ -154,7 +154,7 @@ class ConfigChange implements ObserverInterface
              */
             // Firts delete de current UTT 
             $this->_resourceConfig->deleteConfig(
-                'impact_impactintegration/existing_customer/utt_default',
+                'impact_integration/existing_customer/utt_default',
                 'default',
                 0
             );
@@ -165,7 +165,7 @@ class ConfigChange implements ObserverInterface
             } 
             // Save New Current Universal Tracking Tag 
             $this->_resourceConfig->saveConfig(
-                'impact_impactintegration/existing_customer/utt_default',
+                'impact_integration/existing_customer/utt_default',
                 $currentUTT,
                 'default',
                 0
@@ -218,7 +218,7 @@ class ConfigChange implements ObserverInterface
     {
         $accessToken = '';
         // Get the Impact integration data
-        $integration = $this->_integrationService->findByName('impactintegration');
+        $integration = $this->_integrationService->findByName('ImpactIntegration');
         if (!$integration->getId()) {
             throw new NoSuchEntityException(__('Cannot find Impact integration.'));
         }
@@ -239,7 +239,7 @@ class ConfigChange implements ObserverInterface
         $connection = $this->setup->getConnection();
         $select = $connection->select()
                                 ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/".$urlType."'");
+                                ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/".$urlType."'");
         $row = $connection->fetchRow($select);
         return $row;
     }

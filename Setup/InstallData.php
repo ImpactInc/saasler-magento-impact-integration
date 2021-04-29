@@ -1,5 +1,5 @@
 <?php
-namespace impact\impactintegration\Setup;
+namespace Impact\Integration\Setup;
 
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -29,6 +29,6 @@ class InstallData implements InstallDataInterface
 
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
-        $this->integrationManager->processIntegrationConfig(['impactintegration']);
+        $this->integrationManager->processIntegrationConfig(['ImpactIntegration']);
     }
 }

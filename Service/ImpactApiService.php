@@ -1,6 +1,6 @@
 <?php
 
-namespace impact\impactintegration\Service;
+namespace Impact\Integration\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;

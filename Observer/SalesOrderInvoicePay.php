@@ -1,12 +1,12 @@
 <?php
-namespace impact\impactintegration\Observer;
+namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use impact\impactintegration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Stdlib\CookieManagerInterface;
-use impact\impactintegration\Helper\Data;
+use Impact\Integration\Helper\Data;
 
 class SalesOrderInvoicePay implements ObserverInterface
 {   
@@ -41,7 +41,7 @@ class SalesOrderInvoicePay implements ObserverInterface
             $connection = $this->setup->getConnection();
             $select = $connection->select()
                                     ->from('core_config_data')
-                                    ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/conversion_url'");
+                                    ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/conversion_url'");
             $row = $connection->fetchRow($select);
             if ($row) {
                 $conversion_url = $row['value'];

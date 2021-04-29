@@ -1,8 +1,8 @@
 <?php
 
-namespace impact\impactintegration\Setup;
+namespace Impact\Integration\Setup;
 
-use impact\impactintegration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Config\Model\ResourceModel\Config;
@@ -60,7 +60,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         \Magento\Framework\Setup\ModuleContextInterface $context
     ) {
         // Validate if the integration was enabled
-        $integration = $this->_integrationService->findByName('impactintegration');
+        $integration = $this->_integrationService->findByName('ImpactIntegration');
         if (isset($integration) && $integration->getStatus()) {
             // Get accesstoken from integration
             $token = $this->oauthService->getAccessToken($integration->getConsumerId());
@@ -77,7 +77,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             $connection = $this->setup->getConnection();
             $select = $connection->select()
                                 ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/utt_default'");
+                                ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/utt_default'");
             $rowCurrentUTT = $connection->fetchRow($select);
             $currentUTT = "";
             if ($rowCurrentUTT) {
@@ -115,47 +115,47 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     private function deleteImpactData():void
     {
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/account_sid',
+            'impact_integration/existing_customer/account_sid',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/auth_token',
+            'impact_integration/existing_customer/auth_token',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/program_id',
+            'impact_integration/existing_customer/program_id',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/event_type_id',
+            'impact_integration/existing_customer/event_type_id',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/universal_tracking_tag',
+            'impact_integration/existing_customer/universal_tracking_tag',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/conversion_url',
+            'impact_integration/existing_customer/conversion_url',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/refund_url',
+            'impact_integration/existing_customer/refund_url',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/existing_customer/utt_default',
+            'impact_integration/existing_customer/utt_default',
             'default',
             0
         );
         $this->_resourceConfig->deleteConfig(
-            'impact_impactintegration/general/enabled',
+            'impact_integration/general/enabled',
             'default',
             0
         );

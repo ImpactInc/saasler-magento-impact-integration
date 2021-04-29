@@ -1,11 +1,11 @@
 <?php
-namespace impact\impactintegration\Observer;
+namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use impact\impactintegration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use impact\impactintegration\Helper\Data;
+use Impact\Integration\Helper\Data;
 
 class SalesOrderCreditmemoRefund implements ObserverInterface
 {   
@@ -34,7 +34,7 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
             $connection = $this->setup->getConnection();
             $select = $connection->select()
                                     ->from('core_config_data')
-                                    ->where($connection->quoteIdentifier('path') . "= 'impact_impactintegration/existing_customer/refund_url'");
+                                    ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/refund_url'");
             $row = $connection->fetchRow($select);
             if ($row) {
                 $refund_url = $row['value'];
