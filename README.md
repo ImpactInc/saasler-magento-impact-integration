@@ -94,3 +94,15 @@ php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile
 php bin/magento cache:flush
 ```
+
+
+## How to uninstall Impact_Integration
+
+Run the following command in Magento 2 root folder:
+
+```
+php bin/magento module:uninstall impact_integration
+php bin/magento setup:upgrade
+php bin/magento setup:di:compile
+php bin/magento cache:flush
+```
