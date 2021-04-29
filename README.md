@@ -51,7 +51,7 @@ Run the following command in Magento 2 root folder.
 
 ```
 composer require impact/integration
-php bin/magento module:enable impact_integration
+php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
 ```
 
@@ -101,7 +101,7 @@ php bin/magento cache:flush
 Run the following command in Magento 2 root folder:
 
 ```
-php bin/magento module:uninstall impact_integration
+php bin/magento module:uninstall Impact_Integration
 php bin/magento setup:upgrade
 php bin/magento setup:di:compile
 php bin/magento cache:flush
