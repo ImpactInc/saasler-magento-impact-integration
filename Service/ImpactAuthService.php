@@ -66,7 +66,7 @@ class ImpactAuthService
     {
         $accessToken = '';
         // Get the Impact integration data
-        $integration = $this->_integrationService->findByName('impactintegration');
+        $integration = $this->_integrationService->findByName('ImpactIntegration');
         if (!$integration->getId()) {
             throw new NoSuchEntityException(__('Cannot find Impact integration.'));
         }
