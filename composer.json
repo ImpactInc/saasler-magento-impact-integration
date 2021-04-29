@@ -2,7 +2,7 @@
     "name": "Impact/Integration",
     "description": "Magento Impact Integration",
     "type": "magento2-module",
-    "version": "2.0.13",
+    "version": "2.0.14",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
