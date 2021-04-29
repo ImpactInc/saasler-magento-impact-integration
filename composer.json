@@ -1,12 +1,12 @@
 {
-    "name": "impact/impactintegration",
+    "name": "Impact/Integration",
     "description": "Magento Impact Integration",
     "type": "magento2-module",
-    "version": "2.0.12",
+    "version": "2.0.13",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
-          "impact\\impactintegration\\": ""
+          "Impact\\Integration\\": ""
        }
     },
     "minimum-stability": "dev",
