@@ -1,4 +1,11 @@
 <?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
+
 namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
@@ -7,11 +14,29 @@ use Impact\Integration\Service\ImpactApiService;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Impact\Integration\Helper\Data;
 
+/**
+ * Class SalesOrderCreditmemoRefund
+ *
+ * @package Impact\Integration\Observer
+ */
 class SalesOrderCreditmemoRefund implements ObserverInterface
 {   
+    /**
+     * @var setup
+     */
     private $setup;
+
+    /**
+     * @var helper
+     */
     private $helper;
     
+    /**
+     * SalesOrderCreditmemoRefund constructor.
+     * 
+     * @param ModuleDataSetupInterface $setup
+     * @param Data $helper 
+     */
     public function __construct(
         ModuleDataSetupInterface $setup, 
         Data $helper
@@ -22,6 +47,8 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
     }
 
     /**
+    * Execute Function
+    * 
     * @param EventObserver $observer
     * @return $this
     */

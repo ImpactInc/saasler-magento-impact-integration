@@ -1,4 +1,10 @@
 <?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
 
 namespace Impact\Integration\Service;
 
@@ -9,43 +15,58 @@ use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
  * Class ImpactApiService
+ * 
+ * @package Impact\Integration\Service
  */
 class ImpactApiService
 {
     /**
      * 
      * Access Token 
+     * 
+     * @var accessToken
      */
     private $accessToken; 
 
     /**
      * 
      * Client GuzzleHttp
+     * 
+     * @var client
      */
     private $client; 
 
     /**
      * 
      * API request endpoint
+     * 
+     * @var endpoint
      */
     private $endpoint; 
 
     /**
      * 
      * API request method
+     * 
+     * @var method
      */
     private $method; 
 
     /**
      * 
      * API request body
+     * 
+     * @var body
      */
     private $body; 
 
     /**
      * ImpactApiService constructor
      *
+     * @param string $accessToken
      * @param string $endpoint
+     * @param string $method
+     * @param array $body
      */
     public function __construct(
         $accessToken,

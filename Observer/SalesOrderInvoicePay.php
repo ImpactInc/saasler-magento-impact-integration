@@ -1,4 +1,11 @@
 <?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
+
 namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
@@ -8,15 +15,35 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Stdlib\CookieManagerInterface;
 use Impact\Integration\Helper\Data;
 
+/**
+ * Class SalesOrderInvoicePay
+ *
+ * @package Impact\Integration\Observer
+ */
 class SalesOrderInvoicePay implements ObserverInterface
 {   
+    /**
+     * @var setup
+     */
     private $setup;
+
     /**
      * @var CookieManagerInterface
      */
     protected $cookieManager;
+
+    /**
+     * @var helper
+     */
     private $helper; 
 
+    /**
+     * SalesOrderInvoicePay constructor.
+     * 
+     * @param ModuleDataSetupInterface $setup
+     * @param CookieManagerInterface $cookieManager
+     * @param Data $helper 
+     */
     public function __construct(
         ModuleDataSetupInterface $setup, 
         CookieManagerInterface $cookieManager,  

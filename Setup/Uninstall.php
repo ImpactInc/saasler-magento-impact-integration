@@ -1,4 +1,10 @@
 <?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
 
 namespace Impact\Integration\Setup;
 
@@ -8,6 +14,11 @@ use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 
+/**
+ * Class Uninstall
+ *
+ * @package Impact\Integration\Setup
+ */
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
      /**
@@ -34,10 +45,21 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
      */
     protected $_resourceConfig;
 
+    /**
+     * @var setup
+     */
     private $setup;
 
+    /**
+     * Uninstall constructor.
+     * 
+     * @param Config $Config
+     * @param IntegrationServiceInterface $integrationService
+     * @param OauthServiceInterface $oauthService
+     * @param ModuleDataSetupInterface $setup
+     */
     public function __construct(
-        Config $resourceConfig,
+        Config $Config,
         IntegrationServiceInterface $integrationService,
         OauthServiceInterface $oauthService,
         ModuleDataSetupInterface $setup
@@ -48,6 +70,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         $this->oauthService = $oauthService;
         $this->setup = $setup;
     }
+
     /**
      * Module uninstall code
      *
@@ -65,7 +88,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             // Get accesstoken from integration
             $token = $this->oauthService->getAccessToken($integration->getConsumerId());
             $accessToken = $token->getToken();
-            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info('Se desinstalo impact-extension: '. $accessToken);
+        
             // Send request uninstall in saasler
             $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'si']));
             $response = $impactApiService->execute();
@@ -111,6 +134,8 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 
     /**
      * Delete data on database
+     * 
+     * @return void
      */
     private function deleteImpactData():void
     {

@@ -1,4 +1,11 @@
 <?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
+
 namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\ObserverInterface;
@@ -14,6 +21,11 @@ use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
 
+/**
+ * Class ConfigChange
+ *
+ * @package Impact\Integration\Observer
+ */
 class ConfigChange implements ObserverInterface
 {
     /**
@@ -24,33 +36,55 @@ class ConfigChange implements ObserverInterface
     /**
      * Integration service
      *
-     * @var \Magento\Integration\Api\IntegrationServiceInterface
+     * @var _integrationService \Magento\Integration\Api\IntegrationServiceInterface
      */
     private $_integrationService;
 
     /**
      * Model Config
      *
-     * @var Magento\Config\Model\Config
+     * @var config Magento\Config\Model\Config
      */
     private $config;
 
     /**
-     * @var \Magento\Config\Model\ResourceModel\Config
+     * @var _resourceConfig \Magento\Config\Model\ResourceModel\Config
      */
     protected $_resourceConfig;
 
     /**
      * Oauth Service Interface
      *
-     * @var Magento\Integration\Api\OauthServiceInterface
+     * @var oauthService Magento\Integration\Api\OauthServiceInterface
      */
     private $oauthService;
 
+    /**
+     * @var request
+     */
     private $request;
+
+    /**
+     * @var setup
+     */
     private $setup;
+
+    /**
+     * @var helper
+     */
     private $helper; 
 
+    /**
+     * ConfigChange constructor.
+     * @param RequestInterface $request
+     * @param IntegrationServiceInterface $integrationService 
+     * @param Config $resourceConfig
+     * @param  OauthServiceInterface $oauthService 
+     * @param ModuleDataSetupInterface $setup
+     * @param TypeListInterface $cacheTypeList
+     * @param Pool $cacheFrontendPool
+     * @param Data $helper
+     */
     public function __construct(
         RequestInterface $request, 
         IntegrationServiceInterface $integrationService, 
@@ -70,6 +104,11 @@ class ConfigChange implements ObserverInterface
         $this->cacheFrontendPool = $cacheFrontendPool;
         $this->helper = $helper;
     }
+    /**
+     * Execute Function
+     * 
+     * @param Observer $observer
+     */
     public function execute(EventObserver $observer)
     {
         // First get the current UTT before update
@@ -83,10 +122,58 @@ class ConfigChange implements ObserverInterface
         
         // Validate if module is enable
         if ($this->helper->isEnabled()) {
-            // Saasler Script
-            //$saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3);const o="expires="+i.toUTCString();document.cookie=e+"="+n+";SameSite=None;"+o+";path=/"}("irclickid",e,30)}()}();</script>';
-            $saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");console.log("irclickid",e),e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3),i.toUTCString(),document.cookie=e+"="+n+";"}("irclickid",e,30)}()}();</script>';
-            $ircClickFunction = ' <script type="text/javascript> function setCookie(e,i,t){const o=new Date;o.setTime(o.getTime()+24*t*60*60*1e3);const n="expires="+o.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+n+";path=/"}ire("generateClickId",function(e){setCookie("irclickid",e,30)}); </script> ';
+            /* Saasler Script
+            <script type="text/javascript">
+                (function() {
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+                function setCookie(cookieName, cookieValue, daysUntilExpiration) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
+                    const expires = "expires="+date.toUTCString();
+                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/";
+                }
+                function onPageLoad() {
+                    const irclickid = getParameterByName('irclickid');
+                    if (irclickid) setCookie('irclickid', irclickid, 30);
+                };
+                onPageLoad();
+                })();
+                </script>
+            */
+            // Production Version
+            $saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3);const o="expires="+i.toUTCString();document.cookie=e+"="+n+";SameSite=None;"+o+";path=/"}("irclickid",e,30)}()}();</script>'; 
+            // Developer version
+            //$saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");console.log("irclickid",e),e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3),i.toUTCString(),document.cookie=e+"="+n+";"}("irclickid",e,30)}()}();</script>';     
+
+            /*
+             IRC Click function
+             <script type="text/javascript">
+                (function() {
+                    function setCookie(cookieName, cookieValue, daysUntilExpiration) {
+                        const date = new Date();
+                        date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
+                        const expires = "expires="+date.toUTCString();
+                        document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/;secure";
+                    }
+                    ire("generateClickId",function(clickId){
+                        setCookie("irclickid",clickId,30)
+                    }); 
+                })();
+                </script>
+             */
+
+            // Production Version
+            $ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,t){const n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);const c="expires="+n.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+c+";path=/;secure"}("irclickid",e,30)})}(); </script> ';  
+            // Developer Version
+            //$ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,n){const t=new Date;t.setTime(t.getTime()+24*n*60*60*1e3),t.toUTCString(),document.cookie=e+"="+i}("irclickid",e,30)})}();</script>';    
             // Get credentials from Impact Setting form
             $params = $this->request->getParam('groups');
             $account_sid = $params['existing_customer']['fields']['account_sid']['value'] ? $params['existing_customer']['fields']['account_sid']['value'] : '';
@@ -231,7 +318,7 @@ class ConfigChange implements ObserverInterface
     /**
      * Validate if exist conversion and refund url
      * 
-     * @return row 
+     * @return array 
      */
     private function validateSettingValue($urlType)
     {
@@ -247,7 +334,7 @@ class ConfigChange implements ObserverInterface
     /**
      * Get  core cofig value
      * 
-     * @return row 
+     * @return array 
      */
     private function getCoreCofigValue($path)
     {
@@ -259,6 +346,7 @@ class ConfigChange implements ObserverInterface
         $row = $connection->fetchRow($select);
         return $row;
     }
+    
     /**
      * Flush cache
      *  

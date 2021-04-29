@@ -1,3 +1,10 @@
+<?xml version="1.0"?>
+<!--
+/**
+ * @author Impact
+ * @package Impact_Integration
+ */
+-->
 <integrations>
     <integration name="ImpactIntegration">
        <email>elias.orozco@koombea.com</email>
