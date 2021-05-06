@@ -23,14 +23,18 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
     */
     const MODULE_ENABLE_DISABLE = 'impact_integration/general/enabled';
 
-    /**
-     * Data constructor.
-     * @param ScopeConfigInterface $scopeConfig
-     */
-    public function __construct(
-        ScopeConfigInterface $scopeConfig
-    ) {
-        $this->scopeConfig = $scopeConfig;
+    const  XML_CONVERSION_URL_PATH = 'impact_integration/existing_customer/conversion_url';
+
+    const XML_REFUND_URL_PATH = 'impact_integration/existing_customer/refund_url';
+
+    public function getConversionUrl(): string
+    {
+        return $this->scopeConfig->getValue(static::XML_CONVERSION_URL_PATH);
+    }
+
+    public function getRefundUrl()
+    {
+        return $this->scopeConfig->getValue(static::XML_REFUND_URL_PATH);
     }
 
     /**
