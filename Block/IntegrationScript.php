@@ -26,7 +26,6 @@ class IntegrationScript extends Template
         /**
          * @TODO: Check if the module is active to show the scripts in the header.
          */
-
         return true;
     }
 }
