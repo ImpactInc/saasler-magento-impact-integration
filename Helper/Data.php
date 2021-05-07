@@ -8,6 +8,7 @@
 
 namespace Impact\Integration\Helper;
 
+use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
 use \Magento\Framework\App\Config\ScopeConfigInterface;
 
@@ -16,7 +17,7 @@ use \Magento\Framework\App\Config\ScopeConfigInterface;
  *
  * @package Impact\Integration\Helper
  */
-class Data extends \Magento\Framework\App\Helper\AbstractHelper
+class Data extends AbstractHelper
 {
     /**
     * Row in core_config_data table for enable extension
@@ -27,14 +28,33 @@ class Data extends \Magento\Framework\App\Helper\AbstractHelper
 
     const XML_REFUND_URL_PATH = 'impact_integration/existing_customer/refund_url';
 
+    const XML_DESIGN_HEAD_INCLUDES_PATH = 'design/head/includes';
+
+    const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/utt_default';
+
     public function getConversionUrl(): string
     {
         return $this->scopeConfig->getValue(static::XML_CONVERSION_URL_PATH);
     }
 
-    public function getRefundUrl()
+    public function getRefundUrl(): string
     {
         return $this->scopeConfig->getValue(static::XML_REFUND_URL_PATH);
+    }
+
+    public function getDesignHeadIncludes(): string
+    {
+        return $this->scopeConfig->getValue(static::XML_DESIGN_HEAD_INCLUDES_PATH);
+    }
+
+    public function getUttDefault(): string
+    {
+        return $this->scopeConfig->getValue(static::XML_UTT_DEFAULT_PATH);
+    }
+
+    public function getConfigValue($path)
+    {
+        return $this->scopeConfig->getValue($path);
     }
 
     /**

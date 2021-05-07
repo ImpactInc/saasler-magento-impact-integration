@@ -93,8 +93,8 @@ class ConfigChange implements ObserverInterface
         ModuleDataSetupInterface $setup,
         TypeListInterface $cacheTypeList,
         Pool $cacheFrontendPool,
-        Data $helper)
-    {
+        Data $helper
+    ) {
         $this->_resourceConfig = $resourceConfig;
         $this->oauthService = $oauthService;
         $this->_integrationService = $integrationService;
@@ -114,11 +114,12 @@ class ConfigChange implements ObserverInterface
         // First get the current UTT before update
         $oldUTT = '';
         $rowCurrentUTT = $this->validateSettingValue('utt_default');
+
         if ($rowCurrentUTT) {
             $oldUTT = $rowCurrentUTT['value'];
         }
         // Get the Head and Style in html head
-        $rowConfig = $this->getCoreCofigValue('design/head/includes');
+        $rowConfig = $this->helper->getDesignHeadIncludes();
         
         // Validate if module is enable
         if ($this->helper->isEnabled()) {
@@ -276,17 +277,11 @@ class ConfigChange implements ObserverInterface
         } else {
             // Remove in Head and Style in html head the UTT or Saasler script 
             if ($rowConfig) {
-                $headHTML= $rowConfig['value'];
-                $headHTMLWithOutUTT = str_replace($oldUTT, "", $headHTML);
+                $headHTMLWithOutUTT = str_replace($oldUTT, "", $rowConfig);
                 $utt = $headHTMLWithOutUTT;
 
                 // Insert core data
-                $this->_resourceConfig->saveConfig(
-                    'design/head/includes',
-                    $utt,
-                    'stores',
-                    1
-                );
+                $this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
             } 
         }
 
