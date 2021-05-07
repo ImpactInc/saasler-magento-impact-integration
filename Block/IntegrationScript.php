@@ -23,6 +23,10 @@ class IntegrationScript extends Template
 
     public function isActive(): bool
     {
+        /**
+         * @TODO: Check if the module is active to show the scripts in the header.
+         */
+
         return true;
     }
 }
