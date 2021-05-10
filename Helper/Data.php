@@ -30,7 +30,7 @@ class Data extends AbstractHelper
 
     const XML_DESIGN_HEAD_INCLUDES_PATH = 'design/head/includes';
 
-    const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/utt_default';
+    const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/universal_tracking_tag';
 
     public function getConversionUrl(): string
     {
