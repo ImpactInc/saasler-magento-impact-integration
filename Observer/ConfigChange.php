@@ -126,7 +126,7 @@ class ConfigChange implements ObserverInterface
             $oldUTT = $rowCurrentUTT['value'];
         }
         // Get the Head and Style in html head
-        $rowConfig = $this->helper->getDesignHeadIncludes();
+        //$rowConfig = $this->helper->getDesignHeadIncludes();
         
         // Validate if module is enable
         if ($this->helper->isEnabled()) {
@@ -222,7 +222,7 @@ class ConfigChange implements ObserverInterface
              *  Upadte Current UTT
              */
             // Firts delete de current UTT 
-            $this->_resourceConfig->deleteConfig('impact_integration/existing_customer/utt_default', 'default', 0);
+            //$this->_resourceConfig->deleteConfig('impact_integration/existing_customer/utt_default', 'default', 0);
             // Validate if user input UTT
             $currentUTT = $saasler_script;
             if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
@@ -231,26 +231,21 @@ class ConfigChange implements ObserverInterface
             // Save New Current Universal Tracking Tag 
             $this->_resourceConfig->saveConfig('impact_integration/existing_customer/utt_default', $currentUTT, 'default', 0);
             // Remove the old UTT on Head and Style html head
-            if ($rowConfig) {
-                $headHTML= $rowConfig['value'];
-                $headHTMLWithOutUTT = str_replace($oldUTT, "", $headHTML);
-                $utt = $headHTMLWithOutUTT." ".$currentUTT;
-            } else {
-                $utt = $currentUTT;
-            }
+
+            /**
+             * @TODO: Check this to not break anything
+             */
+//            if ($rowConfig) {
+//                $headHTML= $rowConfig['value'];
+//                $headHTMLWithOutUTT = str_replace($oldUTT, "", $headHTML);
+//                $utt = $headHTMLWithOutUTT." ".$currentUTT;
+//            } else {
+//                $utt = $currentUTT;
+//            }
             // Insert core data
-            $this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
+            //$this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
 
 
-        } else {
-            // Remove in Head and Style in html head the UTT or Saasler script 
-            if ($rowConfig) {
-                $headHTMLWithOutUTT = str_replace($oldUTT, "", $rowConfig);
-                $utt = $headHTMLWithOutUTT;
-
-                // Insert core data
-                $this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
-            } 
         }
 
         // Clean cache
