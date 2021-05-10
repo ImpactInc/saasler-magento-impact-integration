@@ -8,6 +8,7 @@
 
 namespace Impact\Integration\Observer;
 
+use Impact\Inegration\Model\ConfigData;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
@@ -72,7 +73,9 @@ class ConfigChange implements ObserverInterface
     /**
      * @var helper
      */
-    private $helper; 
+    private $helper;
+
+    private ConfigData $configData;
 
     /**
      * ConfigChange constructor.
@@ -84,6 +87,7 @@ class ConfigChange implements ObserverInterface
      * @param TypeListInterface $cacheTypeList
      * @param Pool $cacheFrontendPool
      * @param Data $helper
+     * @param ConfigData $configData
      */
     public function __construct(
         RequestInterface $request, 
@@ -93,7 +97,8 @@ class ConfigChange implements ObserverInterface
         ModuleDataSetupInterface $setup,
         TypeListInterface $cacheTypeList,
         Pool $cacheFrontendPool,
-        Data $helper
+        Data $helper,
+        ConfigData $configData
     ) {
         $this->_resourceConfig = $resourceConfig;
         $this->oauthService = $oauthService;
@@ -103,6 +108,8 @@ class ConfigChange implements ObserverInterface
         $this->cacheTypeList = $cacheTypeList;
         $this->cacheFrontendPool = $cacheFrontendPool;
         $this->helper = $helper;
+
+        $this->configData = $configData;
     }
     /**
      * Execute Function
@@ -172,7 +179,7 @@ class ConfigChange implements ObserverInterface
              */
 
             // Production Version
-            $ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,t){const n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);const c="expires="+n.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+c+";path=/;secure"}("irclickid",e,30)})}(); </script> ';  
+            $ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,t){const n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);const c="expires="+n.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+c+";path=/;secure"}("irclickid",e,30)})}(); </script> ';
             // Developer Version
             //$ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,n){const t=new Date;t.setTime(t.getTime()+24*n*60*60*1e3),t.toUTCString(),document.cookie=e+"="+i}("irclickid",e,30)})}();</script>';    
             // Get credentials from Impact Setting form
@@ -203,61 +210,26 @@ class ConfigChange implements ObserverInterface
             $responseContent = $responseBody->getContents();
             $urls = json_decode($responseContent, true);
 
-            // Validate conversion url
-            $rowConversion = $this->validateSettingValue('conversion_url');
-            if ($rowConversion) {
-                $this->_resourceConfig->deleteConfig(
-                    'impact_integration/existing_customer/conversion_url',
-                    'default',
-                    0
-                );
-            }
-            // Insert conversion url
-            $this->_resourceConfig->saveConfig(
-                'impact_integration/existing_customer/conversion_url',
-                $urls['conversion_url'],
-                'default',
-                0
-            );
-                
-            // Validate refund url
-            $rowRefund = $this->validateSettingValue('refund_url');
-            if ($rowRefund) {
-                $this->_resourceConfig->deleteConfig(
-                    'impact_integration/existing_customer/refund_url',
-                    'default',
-                    0
-                );
-            } 
-            // Insert refund url
-            $this->_resourceConfig->saveConfig(
-                'impact_integration/existing_customer/refund_url',
-                $urls['refund_url'],
-                'default',
-                0
-            );
+
+            $this->configData->refresh($urls);
+
+            /**
+             *  @TODO: Check if this part could be replaced in with the new block that I created. Store what you need in
+             *         the database and send them to the block template.
+             */
 
             /**
              *  Upadte Current UTT
              */
             // Firts delete de current UTT 
-            $this->_resourceConfig->deleteConfig(
-                'impact_integration/existing_customer/utt_default',
-                'default',
-                0
-            );
+            $this->_resourceConfig->deleteConfig('impact_integration/existing_customer/utt_default', 'default', 0);
             // Validate if user input UTT
             $currentUTT = $saasler_script;
             if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
                 $currentUTT = $universal_tracking_tag . $ircClickFunction;
             } 
             // Save New Current Universal Tracking Tag 
-            $this->_resourceConfig->saveConfig(
-                'impact_integration/existing_customer/utt_default',
-                $currentUTT,
-                'default',
-                0
-            );
+            $this->_resourceConfig->saveConfig('impact_integration/existing_customer/utt_default', $currentUTT, 'default', 0);
             // Remove the old UTT on Head and Style html head
             if ($rowConfig) {
                 $headHTML= $rowConfig['value'];
@@ -266,14 +238,10 @@ class ConfigChange implements ObserverInterface
             } else {
                 $utt = $currentUTT;
             }
-
             // Insert core data
-            $this->_resourceConfig->saveConfig(
-                'design/head/includes',
-                $utt,
-                'stores',
-                1
-            );
+            $this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
+
+
         } else {
             // Remove in Head and Style in html head the UTT or Saasler script 
             if ($rowConfig) {
@@ -322,22 +290,6 @@ class ConfigChange implements ObserverInterface
         $select = $connection->select()
                                 ->from('core_config_data')
                                 ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/".$urlType."'");
-        $row = $connection->fetchRow($select);
-        return $row;
-    }
-
-    /**
-     * Get  core cofig value
-     * 
-     * @return array 
-     */
-    private function getCoreCofigValue($path)
-    {
-        // Validate if refund url exist
-        $connection = $this->setup->getConnection();
-        $select = $connection->select()
-                                ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= '".$path."'");
         $row = $connection->fetchRow($select);
         return $row;
     }
