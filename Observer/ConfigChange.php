@@ -8,7 +8,7 @@
 
 namespace Impact\Integration\Observer;
 
-use Impact\Inegration\Model\ConfigData;
+use Impact\Integration\Model\ConfigData;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
