@@ -9,6 +9,6 @@
 
 \Magento\Framework\Component\ComponentRegistrar::register(
     \Magento\Framework\Component\ComponentRegistrar::MODULE,
-    'impact_integration',
+    'Impact_Integration',
     __DIR__
 );
