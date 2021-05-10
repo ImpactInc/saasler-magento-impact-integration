@@ -1,6 +1,6 @@
 <?php
 
-namespace Impact\Inegration\Model;
+namespace Impact\Integration\Model;
 
 use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
