@@ -28,9 +28,7 @@ class Data extends AbstractHelper
 
     const XML_REFUND_URL_PATH = 'impact_integration/existing_customer/refund_url';
 
-    const XML_DESIGN_HEAD_INCLUDES_PATH = 'design/head/includes';
-
-    const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/universal_tracking_tag';
+    const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/utt_default';
 
     public function getConversionUrl(): string
     {
@@ -40,11 +38,6 @@ class Data extends AbstractHelper
     public function getRefundUrl(): string
     {
         return $this->scopeConfig->getValue(static::XML_REFUND_URL_PATH);
-    }
-
-    public function getDesignHeadIncludes(): string
-    {
-        return $this->scopeConfig->getValue(static::XML_DESIGN_HEAD_INCLUDES_PATH);
     }
 
     public function getUttDefault(): string

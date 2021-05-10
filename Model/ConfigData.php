@@ -31,7 +31,7 @@ class ConfigData
         $toUpdate = [
             'impact_integration/existing_customer/conversion_url' => $urls['conversion_url'],
             'impact_integration/existing_customer/refund_url' => $urls['refund_url'],
-//            'impact_integration/existing_customer/utt_default' => $urls['utt_default']
+            'impact_integration/existing_customer/utt_default' => $urls['utt_default']
         ];
 
         foreach ($toUpdate as $key => $value) {

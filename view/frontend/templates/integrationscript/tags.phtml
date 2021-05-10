@@ -3,32 +3,30 @@
     <?php if(!empty($this->getScript())): ?>
         <?= $this->getScript() ?>
     <?php else:?>
-        <script type="text/javascript"> !function () {
-                !function () {
-                    const e = function (e, n) {
-                        n || (n = window.location.href), e = e.replace(/[\[\]]/g, "\\$&");
-                        var c = new RegExp("[?&]" + e + "(=([^&#]*)|&|#|$)").exec(n);
-                        return c ? c[2] ? decodeURIComponent(c[2].replace(/\+/g, " ")) : "" : null
-                    }("irclickid");
-                    e && function (e, n, c) {
-                        const i = new Date;
-                        i.setTime(i.getTime() + 24 * c * 60 * 60 * 1e3);
-                        const o = "expires=" + i.toUTCString();
-                        document.cookie = e + "=" + n + ";SameSite=None;" + o + ";path=/"
-                    }("irclickid", e, 30)
-                }()
-            }();
-        </script>
-        <script type="text/javascript"> !function () {
-                ire("generateClickId", function (e) {
-                    !function (e, i, t) {
-                        const n = new Date;
-                        n.setTime(n.getTime() + 24 * t * 60 * 60 * 1e3);
-                        const c = "expires=" + n.toUTCString();
-                        document.cookie = e + "=" + i + ";SameSite=None;" + c + ";path=/;secure"
-                    }("irclickid", e, 30)
-                })
-            }();
+        /* Saasler script */
+        <script type="text/javascript">
+            (function() {
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+                function setCookie(cookieName, cookieValue, daysUntilExpiration) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
+                    const expires = "expires="+date.toUTCString();
+                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/";
+                }
+                function onPageLoad() {
+                    const irclickid = getParameterByName('irclickid');
+                    if (irclickid) setCookie('irclickid', irclickid, 30);
+                };
+                onPageLoad();
+            })();
         </script>
     <?php endif; ?>
 <?php endif; ?>

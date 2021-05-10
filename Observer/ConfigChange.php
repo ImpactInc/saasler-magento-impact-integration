@@ -118,49 +118,8 @@ class ConfigChange implements ObserverInterface
      */
     public function execute(EventObserver $observer)
     {
-        // First get the current UTT before update
-        $oldUTT = '';
-        $rowCurrentUTT = $this->validateSettingValue('utt_default');
-
-        if ($rowCurrentUTT) {
-            $oldUTT = $rowCurrentUTT['value'];
-        }
-        // Get the Head and Style in html head
-        //$rowConfig = $this->helper->getDesignHeadIncludes();
-        
         // Validate if module is enable
-        if ($this->helper->isEnabled()) {
-            /* Saasler Script
-            <script type="text/javascript">
-                (function() {
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, '\\$&');
-                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                }
-                function setCookie(cookieName, cookieValue, daysUntilExpiration) {
-                    const date = new Date();
-                    date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
-                    const expires = "expires="+date.toUTCString();
-                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/";
-                }
-                function onPageLoad() {
-                    const irclickid = getParameterByName('irclickid');
-                    if (irclickid) setCookie('irclickid', irclickid, 30);
-                };
-                onPageLoad();
-                })();
-                </script>
-            */
-            // Production Version
-            $saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3);const o="expires="+i.toUTCString();document.cookie=e+"="+n+";SameSite=None;"+o+";path=/"}("irclickid",e,30)}()}();</script>'; 
-            // Developer version
-            //$saasler_script = '<script type="text/javascript"> !function(){!function(){const e=function(e,n){n||(n=window.location.href),e=e.replace(/[\[\]]/g,"\\$&");var c=new RegExp("[?&]"+e+"(=([^&#]*)|&|#|$)").exec(n);return c?c[2]?decodeURIComponent(c[2].replace(/\+/g," ")):"":null}("irclickid");console.log("irclickid",e),e&&function(e,n,c){const i=new Date;i.setTime(i.getTime()+24*c*60*60*1e3),i.toUTCString(),document.cookie=e+"="+n+";"}("irclickid",e,30)}()}();</script>';     
-
+        if ($this->helper->isEnabled()) { 
             /*
              IRC Click function
              <script type="text/javascript">
@@ -182,6 +141,7 @@ class ConfigChange implements ObserverInterface
             $ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,t){const n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);const c="expires="+n.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+c+";path=/;secure"}("irclickid",e,30)})}(); </script> ';
             // Developer Version
             //$ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,n){const t=new Date;t.setTime(t.getTime()+24*n*60*60*1e3),t.toUTCString(),document.cookie=e+"="+i}("irclickid",e,30)})}();</script>';    
+            
             // Get credentials from Impact Setting form
             $params = $this->request->getParam('groups');
             $account_sid = $params['existing_customer']['fields']['account_sid']['value'] ? $params['existing_customer']['fields']['account_sid']['value'] : '';
@@ -210,42 +170,14 @@ class ConfigChange implements ObserverInterface
             $responseContent = $responseBody->getContents();
             $urls = json_decode($responseContent, true);
 
-
-            $this->configData->refresh($urls);
-
-            /**
-             *  @TODO: Check if this part could be replaced in with the new block that I created. Store what you need in
-             *         the database and send them to the block template.
-             */
-
-            /**
-             *  Upadte Current UTT
-             */
-            // Firts delete de current UTT 
-            //$this->_resourceConfig->deleteConfig('impact_integration/existing_customer/utt_default', 'default', 0);
+            $urls['utt_default'] = '';
             // Validate if user input UTT
-            $currentUTT = $saasler_script;
             if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
-                $currentUTT = $universal_tracking_tag . $ircClickFunction;
+                $urls['utt_default'] = $universal_tracking_tag . $ircClickFunction;
             } 
-            // Save New Current Universal Tracking Tag 
-            $this->_resourceConfig->saveConfig('impact_integration/existing_customer/utt_default', $currentUTT, 'default', 0);
-            // Remove the old UTT on Head and Style html head
 
-            /**
-             * @TODO: Check this to not break anything
-             */
-//            if ($rowConfig) {
-//                $headHTML= $rowConfig['value'];
-//                $headHTMLWithOutUTT = str_replace($oldUTT, "", $headHTML);
-//                $utt = $headHTMLWithOutUTT." ".$currentUTT;
-//            } else {
-//                $utt = $currentUTT;
-//            }
-            // Insert core data
-            //$this->_resourceConfig->saveConfig('design/head/includes', $utt, 'stores', 1);
-
-
+            // Save conversion_url, refund_url and universal tracking tag with irc click Id Function
+            $this->configData->refresh($urls);
         }
 
         // Clean cache
@@ -273,22 +205,6 @@ class ConfigChange implements ObserverInterface
         return $accessToken;
     }
 
-    /**
-     * Validate if exist conversion and refund url
-     * 
-     * @return array 
-     */
-    private function validateSettingValue($urlType)
-    {
-        // Validate if refund url exist
-        $connection = $this->setup->getConnection();
-        $select = $connection->select()
-                                ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/".$urlType."'");
-        $row = $connection->fetchRow($select);
-        return $row;
-    }
-    
     /**
      * Flush cache
      *  
