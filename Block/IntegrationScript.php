@@ -26,6 +26,11 @@ class IntegrationScript extends Template
         /**
          * @TODO: Check if the module is active to show the scripts in the header.
          */
-        return true;
+        return $this->helperData->isEnabled();
+    }
+
+    public function getScript(): string
+    {
+        return $this->helperData->getUttDefault();
     }
 }
