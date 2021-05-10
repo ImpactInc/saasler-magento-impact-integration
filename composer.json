@@ -1,5 +1,5 @@
 {
-    "name": "impact/module-integration",
+    "name": "impact/integration",
     "description": "Magento Impact Integration",
     "type": "magento2-module",
     "version": "2.1.2",
