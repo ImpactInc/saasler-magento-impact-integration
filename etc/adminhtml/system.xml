@@ -22,6 +22,14 @@
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
+                <field id="btn_uninstall" translate="button_label attribute" sortOrder="20" showInDefault="1" showInWebsite="1">
+                    <attribute type="button_label">Uninstall</attribute>
+                    <attribute type="button_url">
+                        <![CDATA[https://saasler-magento-impact.herokuapp.com/uninstall?url=<script>window.location.hostname</script>]]>
+                    </attribute>
+                    <frontend_model>Magento\Paypal\Block\Adminhtml\System\Config\ApiWizard</frontend_model>
+                    <attribute type="shared">1</attribute>
+                </field>
             </group> 
             <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
                    showInStore="0">
