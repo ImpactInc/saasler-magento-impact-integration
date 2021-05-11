@@ -29,7 +29,7 @@ class IntegrationScript extends Template
         return $this->helperData->isEnabled();
     }
 
-    public function getScript(): string
+    public function getScript()
     {
         return $this->helperData->getUttDefault();
     }

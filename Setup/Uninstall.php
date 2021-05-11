@@ -90,7 +90,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             $accessToken = $token->getToken();
         
             // Send request uninstall in saasler
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'si']));
+            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'yes']));
             $response = $impactApiService->execute();
             
             // Delete integration record

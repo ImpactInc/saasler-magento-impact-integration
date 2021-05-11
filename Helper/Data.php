@@ -40,7 +40,7 @@ class Data extends AbstractHelper
         return $this->scopeConfig->getValue(static::XML_REFUND_URL_PATH);
     }
 
-    public function getUttDefault(): string
+    public function getUttDefault()
     {
         return $this->scopeConfig->getValue(static::XML_UTT_DEFAULT_PATH);
     }
