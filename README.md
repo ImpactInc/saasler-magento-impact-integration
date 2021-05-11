@@ -50,7 +50,7 @@ Run the following command in Magento 2 root folder.
 #### 1.1 Install
 
 ```
-composer require impact/integration
+composer require impact/module-magento-integration
 php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
 ```
@@ -58,15 +58,14 @@ php bin/magento setup:upgrade
 #### 1.2 Upgrade
 
 ```
-composer update impact/integration
+composer update impact/module-magento-integration
+php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
 ```
 
-Run content deploy if your store are in Production mode:
+#### 1.3 Set up module
 
-```
-php bin/magento setup:static-content:deploy
-```
+Finish set up the module by running the following commands.
 
 Run compile:
 
@@ -74,35 +73,69 @@ Run compile:
 php bin/magento setup:di:compile
 ```
 
-Flush cache:
+If you run Magento in production mode, you must deploy the module’s static files:
+
+```
+php bin/magento setup:static-content:deploy
+```
+
+Flush and clean cache:
 
 ```
 php bin/magento cache:flush
+php bin/magento cache:clean
 ```
 
-### 2. Copy and paste
+### 2. Install the module manually 
 
 If you don't want to install via composer, you can use this way. 
 
-- Download [the latest version here](https://github.com/saasler/saasler-magento-impact-integration/archive/refs/heads/main.zip) 
+- Download [the latest version here](https://github.com/saasler/saasler-magento-impact-integration/archive/refs/heads/main.zip).
 - Extract `saasler-magento-impact-integration-main.zip` file to `app/code/Impact/Integration` ; You should create a folder path `app/code/Impact/Integration` if not exist.
 - Go to Magento root folder and run upgrade command line to install `Impact_Integration`:
 
 ```
+php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
-php bin/magento setup:static-content:deploy
 php bin/magento setup:di:compile
+``` 
+
+If you run Magento in production mode, you must deploy the module’s static files:
+
+```
+php bin/magento setup:static-content:deploy
+``` 
+
+Finish set up the module by running the following commands.
+
+``` 
 php bin/magento cache:flush
+php bin/magento cache:clean
 ```
 
 
 ## How to uninstall Impact_Integration
 
+### 1. Uninstall via composer (recommend)
+
 Run the following command in Magento 2 root folder:
 
 ```
 php bin/magento module:uninstall Impact_Integration
+```
+
+### 2. Uninstall the module manually 
+
+Before you remove the impact/module folder, on admin panel, in stores/configuration go to Impact Settings tab and click on Uninstall button inside General Configuration tab. 
+
+Remove `impact/module-magento-integration` created in `app/code/impact/module-magento-integration`.
+
+Run the following command in Magento 2 root folder:
+
+```
 php bin/magento setup:upgrade
 php bin/magento setup:di:compile
+php bin/magento setup:static-content:deploy
 php bin/magento cache:flush
+php bin/magento cache:clean
 ```
