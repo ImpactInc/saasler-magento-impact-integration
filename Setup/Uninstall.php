@@ -65,7 +65,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
         ModuleDataSetupInterface $setup
     )
     {
-        $this->_resourceConfig = $resourceConfig;
+        $this->_resourceConfig = $Config;
         $this->_integrationService = $integrationService;
         $this->oauthService = $oauthService;
         $this->setup = $setup;
@@ -93,43 +93,28 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'si']));
             $response = $impactApiService->execute();
             
-            /**
-             * Update the Head and Style in html head
-             */
-            // Get the current UTT            
-            $connection = $this->setup->getConnection();
-            $select = $connection->select()
-                                ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/utt_default'");
-            $rowCurrentUTT = $connection->fetchRow($select);
-            $currentUTT = "";
-            if ($rowCurrentUTT) {
-                $currentUTT = $rowCurrentUTT['value'];
-            }
-           
-            // Get the Head and Style in html head
-            $select = $connection->select()
-                                ->from('core_config_data')
-                                ->where($connection->quoteIdentifier('path') . "= 'design/head/includes'");
-            $rowHeadHTML = $connection->fetchRow($select);
-            $headHTML = "";
-            if ($rowHeadHTML) {
-                $headHTML = $rowHeadHTML['value'];
-            }
-
-            // Update the Head and Style in html head
-            $headHTMLWithOutUTT = str_replace($currentUTT, "", $headHTML);
-            // Insert core data
-            $this->_resourceConfig->saveConfig(
-                'design/head/includes',
-                $headHTMLWithOutUTT,
-                'stores',
-                1
-            );
-
+            // Delete integration record
+            $this->deleteIntegration();
+            
             // Delete data on database
-            $this->deleteImpactData();
+            //$this->deleteImpactData();
        }
+    }
+
+    /**
+     * Delete Impact Integration
+     * 
+     * @return array 
+     */
+    private function deleteIntegration():void
+    {
+        try {
+            $connection = $this->setup->getConnection();
+            $table = $connection->getTableName("integration");
+            $connection->delete($table,["name = ImpactIntegration"]);
+        } catch (\Exception $e) {
+            $this->messageManager->addError($e->getMessage());
+        }
     }
 
     /**
