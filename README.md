@@ -43,7 +43,7 @@ Actionable insights at your fingertips - Continually optimize your partnerships 
 
 ### 1. Install via composer (recommend)
 
-We recommend you to install Impact_Integration module via composer. It is easy to install, update and maintaince.
+We recommend you to install Impact_Integration module via composer. It is easy to install, update and maintenance.
 
 Run the following command in Magento 2 root folder.
 
@@ -91,7 +91,7 @@ php bin/magento cache:clean
 If you don't want to install via composer, you can use this way. 
 
 - Download [the latest version here](https://github.com/saasler/saasler-magento-impact-integration/archive/refs/heads/main.zip).
-- Extract `saasler-magento-impact-integration-main.zip` file to `app/code/Impact/Integration` ; You should create a folder path `app/code/Impact/Integration` if not exist.
+- Extract `saasler-magento-impact-integration-main.zip` file to `app/code/Impact/Integration` ; You should create a folder path `app/code/Impact/Integration` if it does not exist.
 - Go to Magento root folder and run upgrade command line to install `Impact_Integration`:
 
 ```
@@ -126,7 +126,7 @@ php bin/magento module:uninstall Impact_Integration
 
 ### 2. Uninstall the module manually 
 
-Before you remove the impact/module folder, on admin panel, in stores/configuration go to Impact Settings tab and click on Uninstall button inside General Configuration tab. 
+Before you remove the `impact/module folder`, on the admin panel, in `stores/configuration` go to the Impact Settings tab and click on the Uninstall button inside the General Configuration tab.
 
 Remove `impact/module-magento-integration` created in `app/code/impact/module-magento-integration`.
 
@@ -135,6 +135,15 @@ Run the following command in Magento 2 root folder:
 ```
 php bin/magento setup:upgrade
 php bin/magento setup:di:compile
+```
+
+If you run Magento in production mode, you must deploy the module’s static files:
+
+```
+php bin/magento setup:static-content:deploy
+``` 
+
+```
 php bin/magento setup:static-content:deploy
 php bin/magento cache:flush
 php bin/magento cache:clean
