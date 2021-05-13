@@ -77,6 +77,7 @@ class Button extends Field
         )->setData(
             [
                 'id' => 'btnid',
+                'class' => 'primary',
                 'label' => __('Uninstall'),
             ]
         );

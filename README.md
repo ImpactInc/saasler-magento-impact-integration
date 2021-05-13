@@ -126,9 +126,9 @@ php bin/magento module:uninstall Impact_Integration
 
 ### 2. Uninstall the module manually 
 
-Before you remove the `impact/module folder`, on the admin panel, in `stores/configuration` go to the Impact Settings tab and click on the Uninstall button inside the General Configuration tab.
+Before you remove the `Impact/Integration` folder, go to Stores -> Configuration -> Impact Settings and click on the Uninstall button inside the Manually Uninstall Configuration tab.
 
-Remove `impact/module-magento-integration` created in `app/code/impact/module-magento-integration`.
+Remove `Impact/Integration` created in `app/code/Impact/Integration`.
 
 Run the following command in Magento 2 root folder:
 
@@ -143,8 +143,8 @@ If you run Magento in production mode, you must deploy the module’s static fil
 php bin/magento setup:static-content:deploy
 ``` 
 
+To Finish:
 ```
-php bin/magento setup:static-content:deploy
 php bin/magento cache:flush
 php bin/magento cache:clean
 ```

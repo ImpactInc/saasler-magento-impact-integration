@@ -84,7 +84,9 @@
             </group>
             <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Manually Uninstall</label>
-                <comment>For a manual uninstallation, before removing the module, please click on the uninstall button.</comment>
+                <comment><![CDATA[For a manual uninstall, you must first click the <strong>Uninstall</strong> button to delete the information registered in the database and in Impact.  You must also delete the Impact/Integration folder in the app/code path. 
+
+                If you want to install the extension again, you must run the installation steps from the beginning.]]></comment>
                 <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
                      <label></label>
