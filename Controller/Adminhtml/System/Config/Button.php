@@ -6,28 +6,29 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace Impact\Integration\Setup;
-
+namespace Impact\Integration\Controller\Adminhtml\System\Config;
+ 
 use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
-use Magento\Config\Model\ResourceModel\Config;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Impact\Integration\Model\ConfigData;
+use Psr\Log\LoggerInterface;
+use Magento\Backend\App\Action\Context;
+use Magento\Backend\App\Action;
 
 /**
- * Class Uninstall
+ * Class Button
  *
- * @package Impact\Integration\Setup
+ * @package Impact\Integration\Controller\Adminhtml\System\Config
  */
-class Uninstall implements \Magento\Framework\Setup\UninstallInterface
+class Button extends Action
 {
-     /**
+    /**
      * API request endpoint integration
      */
     const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
 
-     /**
+    /**
      * Integration service
      *
      * @var \Magento\Integration\Api\IntegrationServiceInterface
@@ -42,55 +43,50 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     private $oauthService;
 
     /**
-     * @var \Magento\Config\Model\ResourceModel\Config
-     */
-    protected $_resourceConfig;
-
-    /**
-     * @var setup
-     */
-    private $setup;
-
-    /**
      *
      * @var Impact\Integration\Model\ConfigData
      */
     private ConfigData $configData;
 
     /**
-     * Uninstall constructor.
+     *
+     * @var \Psr\Log\LoggerInterface
+     */
+    protected $_logger;
+
+    /**
+     * Button constructor.
      * 
-     * @param Config $Config
+     * @param Context $context,
+     * @param LoggerInterface $logger
      * @param IntegrationServiceInterface $integrationService
      * @param OauthServiceInterface $oauthService
-     * @param ModuleDataSetupInterface $setup
+     * @param ConfigData $configData
      */
     public function __construct(
-        Config $Config,
+        Context $context,
+        LoggerInterface $logger,
         IntegrationServiceInterface $integrationService,
         OauthServiceInterface $oauthService,
-        ModuleDataSetupInterface $setup,
         ConfigData $configData
-    )
-    {
-        $this->_resourceConfig = $Config;
+
+    ) {
+        $this->_logger = $logger;
         $this->_integrationService = $integrationService;
         $this->oauthService = $oauthService;
-        $this->setup = $setup;
         $this->configData = $configData;
+        parent::__construct($context);
     }
 
     /**
-     * Module uninstall code
+     * Execute code
      *
-     * @param \Magento\Framework\Setup\SchemaSetupInterface $setup
-     * @param \Magento\Framework\Setup\ModuleContextInterface $context
      * @return void
      */
-    public function uninstall(
-        \Magento\Framework\Setup\SchemaSetupInterface $setup,
-        \Magento\Framework\Setup\ModuleContextInterface $context
-    ) {
+    public function execute()
+    {
+
+        $this->_logger->info('Start delete all');
         // Validate if the integration was enabled
         $integration = $this->_integrationService->findByName('ImpactIntegration');
         if (isset($integration) && $integration->getStatus()) {
@@ -101,17 +97,12 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             // Send request uninstall in saasler
             $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'yes']));
             $response = $impactApiService->execute();
-            
-            $installer = $setup;
-            $installer->startSetup();
-            
+
             // Delete integration record
-            $integration->delete();;
+            $integration->delete();
 
             // Delete Impact Credentials
             $this->configData->deleteImpactIntegrationConfigData();
-
-            $installer->endSetup();
-       }
+        }
     }
 }

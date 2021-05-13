@@ -82,6 +82,14 @@
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
                 </field>
             </group>
+            <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manually Uninstall</label>
+                <comment>For a manual uninstallation, before removing the module, please click on the uninstall button.</comment>
+                <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
+                     <label></label>
+                </field>
+            </group>
         </section>
     </system>
 </config>

@@ -1,5 +1,10 @@
 <?php
-
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
 
 namespace Impact\Integration\Block;
 
@@ -7,10 +12,24 @@ use Impact\Integration\Helper\Data;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
+/**
+ * Class IntegrationScript
+ *
+ * @package Impact\Integration\Block
+ */
 class IntegrationScript extends Template
 {
+    /**
+     * @var Data $helperData
+     */
     protected Data $helperData;
 
+    /**
+     * IntegrationScript constructor.
+     * 
+     * @param Context $context
+     * @param Data $helperData
+     */
     public function __construct(
         Context $context,
         Data $helperData
@@ -21,6 +40,11 @@ class IntegrationScript extends Template
         parent::__construct($context);
     }
 
+    /**
+     * Function isActive 
+     *
+     * @return bool
+     */
     public function isActive(): bool
     {
         /**
@@ -29,6 +53,11 @@ class IntegrationScript extends Template
         return $this->helperData->isEnabled();
     }
 
+    /**
+     * Function getScript 
+     *
+     * @return string|null
+     */
     public function getScript()
     {
         return $this->helperData->getUttDefault();
