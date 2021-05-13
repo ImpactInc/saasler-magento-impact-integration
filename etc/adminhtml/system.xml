@@ -22,14 +22,6 @@
                     <label>Enable</label>
                     <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
                 </field>
-                <field id="btn_uninstall" translate="button_label attribute" sortOrder="20" showInDefault="1" showInWebsite="1">
-                    <attribute type="button_label">Uninstall</attribute>
-                    <attribute type="button_url">
-                        <![CDATA[https://saasler-magento-impact.herokuapp.com/uninstall?url=<script>window.location.hostname</script>]]>
-                    </attribute>
-                    <frontend_model>Magento\Paypal\Block\Adminhtml\System\Config\ApiWizard</frontend_model>
-                    <attribute type="shared">1</attribute>
-                </field>
             </group> 
             <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
                    showInStore="0">
@@ -88,6 +80,14 @@
                     <comment><![CDATA[If you are new to Impact, <a target="_blank"
                     href="https://impact.com/partnership-cloud/">click here</a> to learn how Partnership Cloud can help grow and optimize your Partnership program.]]></comment>
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
+                </field>
+            </group>
+            <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manually Uninstall</label>
+                <comment>For a manual uninstallation, before removing the module, please click on the uninstall button.</comment>
+                <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
+                     <label></label>
                 </field>
             </group>
         </section>

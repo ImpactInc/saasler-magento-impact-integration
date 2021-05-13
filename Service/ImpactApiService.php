@@ -88,6 +88,7 @@ class ImpactApiService
      */
     public function execute()
     {   
+        $response = [];
         // New GuzzleHttp Client
         $this->client = new Client([
             'base_uri' => $this->endpoint,
@@ -102,7 +103,7 @@ class ImpactApiService
             $request = new Request($this->method, $apiRequest, $headers, $this->body); 
             $response = $this->client->send($request, ['timeout' => 5]);
         } catch (GuzzleException $exception) {
-            throw new NoSuchEntityException($exception->getMessage());
+            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info($exception->getMessage());
         }
         return $response; 
     }

@@ -75,6 +75,10 @@ class ConfigChange implements ObserverInterface
      */
     private $helper;
 
+    /**
+     *
+     * @var Impact\Integration\Model\ConfigData;
+     */
     private ConfigData $configData;
 
     /**
