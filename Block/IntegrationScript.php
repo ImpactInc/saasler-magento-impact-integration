@@ -22,7 +22,7 @@ class IntegrationScript extends Template
     /**
      * @var Data $helperData
      */
-    protected Data $helperData;
+    protected $helperData;
 
     /**
      * IntegrationScript constructor.

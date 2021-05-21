@@ -22,17 +22,17 @@ class ConfigData
     /**
      * @var \Magento\Config\Model\ResourceModel\Config
      */
-    protected Config $_resourceConfig;
+    protected $_resourceConfig;
 
     /**
      * @var Impact\Integration\Helper\Data
      */
-    protected Data $helper;
+    protected $helper;
 
     /**
      * @var array $configKeys
      */
-    protected array $configKeys = [
+    protected $configKeys = [
         'impact_integration/existing_customer/conversion_url',
         'impact_integration/existing_customer/refund_url',
         'impact_integration/existing_customer/utt_default'
@@ -41,7 +41,7 @@ class ConfigData
     /**
      * @var array $configImpactIntegrationKeys
      */
-    protected array $configImpactIntegrationKeys = [
+    protected $configImpactIntegrationKeys = [
         'impact_integration/existing_customer/account_sid',
         'impact_integration/existing_customer/auth_token',
         'impact_integration/existing_customer/program_id',
