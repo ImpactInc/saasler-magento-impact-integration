@@ -46,7 +46,7 @@ class Button extends Action
      *
      * @var Impact\Integration\Model\ConfigData
      */
-    private ConfigData $configData;
+    private $configData;
 
     /**
      *

@@ -55,7 +55,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
      *
      * @var Impact\Integration\Model\ConfigData
      */
-    private ConfigData $configData;
+    private $configData;
 
     /**
      * Uninstall constructor.

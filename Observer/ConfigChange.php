@@ -79,7 +79,7 @@ class ConfigChange implements ObserverInterface
      *
      * @var Impact\Integration\Model\ConfigData;
      */
-    private ConfigData $configData;
+    private $configData;
 
     /**
      * ConfigChange constructor.
@@ -126,7 +126,7 @@ class ConfigChange implements ObserverInterface
         if ($this->helper->isEnabled()) { 
             /*
              IRC Click function
-             <script type="text/javascript">
+            <script type="text/javascript">
                 (function() {
                     function setCookie(cookieName, cookieValue, daysUntilExpiration) {
                         const date = new Date();
@@ -134,17 +134,29 @@ class ConfigChange implements ObserverInterface
                         const expires = "expires="+date.toUTCString();
                         document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/;secure";
                     }
-                    ire("generateClickId",function(clickId){
-                        setCookie("irclickid",clickId,30)
-                    }); 
+                    if (!String.prototype.includes) {
+                        String.prototype.includes = function(search, start) {
+                            'use strict';
+                            if (search instanceof RegExp) {
+                            throw TypeError('first argument must not be a RegExp');
+                            }
+                            if (start === undefined) { start = 0; }
+                            return this.indexOf(search, start) !== -1;
+                        };
+                    }
+                    if (window.location.pathname.includes('checkout')) {
+                        ire("generateClickId",function(clickId){
+                            setCookie("irclickid",clickId,30)
+                        });
+                    }
                 })();
-                </script>
+            </script>
              */
 
             // Production Version
-            $ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,t){const n=new Date;n.setTime(n.getTime()+24*t*60*60*1e3);const c="expires="+n.toUTCString();document.cookie=e+"="+i+";SameSite=None;"+c+";path=/;secure"}("irclickid",e,30)})}(); </script> ';
+            $ircClickFunction = ' <script type="text/javascript"> !function(){String.prototype.includes||(String.prototype.includes=function(e,t){"use strict";if(e instanceof RegExp)throw TypeError("first argument must not be a RegExp");return void 0===t&&(t=0),-1!==this.indexOf(e,t)}),window.location.pathname.includes("checkout")&&ire("generateClickId",function(e){!function(e,t,i){const n=new Date;n.setTime(n.getTime()+24*i*60*60*1e3);const o="expires="+n.toUTCString();document.cookie=e+"="+t+";SameSite=None;"+o+";path=/;secure"}("irclickid",e,30)})}(); </script> ';
             // Developer Version
-            //$ircClickFunction = ' <script type="text/javascript"> !function(){ire("generateClickId",function(e){!function(e,i,n){const t=new Date;t.setTime(t.getTime()+24*n*60*60*1e3),t.toUTCString(),document.cookie=e+"="+i}("irclickid",e,30)})}();</script>';    
+            //$ircClickFunction = ' <script type="text/javascript"> !function(){String.prototype.includes||(String.prototype.includes=function(t,e){"use strict";if(t instanceof RegExp)throw TypeError("first argument must not be a RegExp");return void 0===e&&(e=0),-1!==this.indexOf(t,e)}),window.location.pathname.includes("checkout")&&ire("generateClickId",function(t){!function(t,e,n){const i=new Date;i.setTime(i.getTime()+24*n*60*60*1e3),i.toUTCString(),document.cookie=t+"="+e}("irclickid",t,30)})}(); </script>';    
             
             // Get credentials from Impact Setting form
             $params = $this->request->getParam('groups');
