@@ -177,23 +177,25 @@ class ConfigChange implements ObserverInterface
             // Get accesstoken from integration
             $accessToken = $this->getAccessToken();
 
-            // Send data with ImpactApiService class
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_INTEGRATION , 'PUT', $body);
-            $response = $impactApiService->execute();
+            if (!empty($accessToken)) {
+                // Send data with ImpactApiService class
+                $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_INTEGRATION , 'PUT', $body);
+                $response = $impactApiService->execute();
 
-            // Get response with conversion and refund url
-            $responseBody = $response->getBody();
-            $responseContent = $responseBody->getContents();
-            $urls = json_decode($responseContent, true);
+                // Get response with conversion and refund url
+                $responseBody = $response->getBody();
+                $responseContent = $responseBody->getContents();
+                $urls = json_decode($responseContent, true);
 
-            $urls['utt_default'] = '';
-            // Validate if user input UTT
-            if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
-                $urls['utt_default'] = $universal_tracking_tag . $ircClickFunction;
-            } 
+                $urls['utt_default'] = '';
+                // Validate if user input UTT
+                if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
+                    $urls['utt_default'] = $universal_tracking_tag . $ircClickFunction;
+                } 
 
-            // Save conversion_url, refund_url and universal tracking tag with irc click Id Function
-            $this->configData->refresh($urls);
+                // Save conversion_url, refund_url and universal tracking tag with irc click Id Function
+                $this->configData->refresh($urls);
+            }
         }
 
         // Clean cache
@@ -212,12 +214,14 @@ class ConfigChange implements ObserverInterface
         $accessToken = '';
         // Get the Impact integration data
         $integration = $this->_integrationService->findByName('ImpactIntegration');
-        if (!$integration->getId()) {
-            throw new NoSuchEntityException(__('Cannot find Impact integration.'));
+        if (isset($integration) && $integration->getStatus()) {
+            if (!$integration->getId()) {
+                throw new NoSuchEntityException(__('Cannot find Impact integration.'));
+            }
+            $consumerId = $integration->getConsumerId();
+            $token = $this->oauthService->getAccessToken($consumerId);
+            $accessToken = $token->getToken();
         }
-        $consumerId = $integration->getConsumerId();
-        $token = $this->oauthService->getAccessToken($consumerId);
-        $accessToken = $token->getToken();
         return $accessToken;
     }
 
