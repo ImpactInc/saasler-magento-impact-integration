@@ -43,7 +43,7 @@ class Data extends AbstractHelper
      * 
      * @return string
      */
-    public function getConversionUrl(): string
+    public function getConversionUrl()
     {
         return $this->scopeConfig->getValue(static::XML_CONVERSION_URL_PATH);
     }
@@ -53,7 +53,7 @@ class Data extends AbstractHelper
      * 
      * @return string
      */
-    public function getRefundUrl(): string
+    public function getRefundUrl()
     {
         return $this->scopeConfig->getValue(static::XML_REFUND_URL_PATH);
     }
