@@ -55,7 +55,7 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled()) {
+        if ($this->helper->isEnabled() && !empty($this->helper->getRefundUrl()) && !is_null($this->helper->getRefundUrl()) ) {
             /**
              * @var \Magento\Sales\Model\Order\Creditmemo $creditMemo
              */
@@ -66,7 +66,6 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
             $saaslerApiService = new ImpactApiService('', $this->helper->getRefundUrl(), 'POST', json_encode(['order_id' => $incrementId]));
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
-
         }
         
         return $this; 

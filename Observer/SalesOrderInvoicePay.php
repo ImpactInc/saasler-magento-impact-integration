@@ -54,7 +54,7 @@ class SalesOrderInvoicePay implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled()) {
+        if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl())  && !is_null($this->helper->getConversionUrl()) ) {
             // Get data from order
             $invoice = $observer->getEvent()->getInvoice();
             $order = $invoice->getOrder();
