@@ -50,7 +50,7 @@ Run the following command in Magento 2 root folder.
 #### 1.1 Install
 
 ```
-composer require impact/module-magento-integration
+composer require impact_tech/module-magento-integration
 php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
 ```
@@ -58,7 +58,7 @@ php bin/magento setup:upgrade
 #### 1.2 Upgrade
 
 ```
-composer update impact/module-magento-integration
+composer update impact_tech/module-magento-integration
 php bin/magento module:enable Impact_Integration
 php bin/magento setup:upgrade
 ```
