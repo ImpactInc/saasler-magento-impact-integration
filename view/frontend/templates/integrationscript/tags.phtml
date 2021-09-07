@@ -1,0 +1,39 @@
+<?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Itegration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
+?>
+<?php if($this->isActive()): ?>
+
+    <?php if(!empty($this->getScript())): ?>
+        <?= $this->getScript() ?>
+    <?php else:?>
+        <script type="text/javascript">
+            (function() {
+                function getParameterByName(name, url) {
+                    if (!url) url = window.location.href;
+                    name = name.replace(/[\[\]]/g, '\\$&');
+                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                        results = regex.exec(url);
+                    if (!results) return null;
+                    if (!results[2]) return '';
+                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+                }
+                function setCookie(cookieName, cookieValue, daysUntilExpiration) {
+                    const date = new Date();
+                    date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
+                    const expires = "expires="+date.toUTCString();
+                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/";
+                }
+                function onPageLoad() {
+                    const irclickid = getParameterByName('irclickid');
+                    if (irclickid) setCookie('irclickid', irclickid, 30);
+                };
+                onPageLoad();
+            })();
+        </script>
+    <?php endif; ?>
+<?php endif; ?>

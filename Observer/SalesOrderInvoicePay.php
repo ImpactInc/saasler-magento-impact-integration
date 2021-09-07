@@ -21,12 +21,7 @@ use Impact\Integration\Helper\Data;
  * @package Impact\Integration\Observer
  */
 class SalesOrderInvoicePay implements ObserverInterface
-{   
-    /**
-     * @var setup
-     */
-    private $setup;
-
+{
     /**
      * @var CookieManagerInterface
      */
@@ -39,18 +34,15 @@ class SalesOrderInvoicePay implements ObserverInterface
 
     /**
      * SalesOrderInvoicePay constructor.
-     * 
-     * @param ModuleDataSetupInterface $setup
+     *
      * @param CookieManagerInterface $cookieManager
      * @param Data $helper 
      */
     public function __construct(
-        ModuleDataSetupInterface $setup, 
         CookieManagerInterface $cookieManager,  
         Data $helper
     )
     {
-        $this->setup = $setup;
         $this->cookieManager = $cookieManager;
         $this->helper = $helper;
     }
@@ -62,30 +54,17 @@ class SalesOrderInvoicePay implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled()) {
-            $irclickid = "";
-            // Validate if conversion url exist
-            $connection = $this->setup->getConnection();
-            $select = $connection->select()
-                                    ->from('core_config_data')
-                                    ->where($connection->quoteIdentifier('path') . "= 'impact_integration/existing_customer/conversion_url'");
-            $row = $connection->fetchRow($select);
-            if ($row) {
-                $conversion_url = $row['value'];
-                // Send data POST to Saasler
-                if (isset($conversion_url)) {
-                    // Get data from order
-                    $invoice = $observer->getEvent()->getInvoice();
-                    $order = $invoice->getOrder();
-                    $incrementId = $order->getIncrementId();
-                    $irclickid = $this->cookieManager->getCookie('irclickid');
+        if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl())  && !is_null($this->helper->getConversionUrl()) ) {
+            // Get data from order
+            $invoice = $observer->getEvent()->getInvoice();
+            $order = $invoice->getOrder();
+            $incrementId = $order->getIncrementId();
+            $irclickid = $this->cookieManager->getCookie('irclickid');
 
-                    $saaslerApiService = new ImpactApiService('', $conversion_url, 'POST', json_encode(['order_id' => $incrementId, 'irclickid' => $irclickid]));
-                    $response = $saaslerApiService->execute();
-                    $responseBody = $response->getBody();
-                    $responseContent = $responseBody->getContents();
-                }
-            }
+            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $incrementId, 'irclickid' => $irclickid]));
+            $response = $saaslerApiService->execute();
+            $responseBody = $response->getBody();
+            $responseContent = $responseBody->getContents();
         }
         return $this;
     }    
