@@ -61,9 +61,9 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
              */
             $creditMemo = $observer->getData('creditmemo');
             $order = $creditMemo->getOrder();
-            $incrementId = $order->getIncrementId();
+            $entityId = $order->getEntityId();
 
-            $saaslerApiService = new ImpactApiService('', $this->helper->getRefundUrl(), 'POST', json_encode(['order_id' => $incrementId]));
+            $saaslerApiService = new ImpactApiService('', $this->helper->getRefundUrl(), 'POST', json_encode(['order_id' => $entityId]));
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
         }

@@ -58,10 +58,11 @@ class SalesOrderInvoicePay implements ObserverInterface
             // Get data from order
             $invoice = $observer->getEvent()->getInvoice();
             $order = $invoice->getOrder();
-            $incrementId = $order->getIncrementId();
+            $entityId = $order->getEntityId();
+
             $irclickid = $this->cookieManager->getCookie('irclickid');
 
-            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $incrementId, 'irclickid' => $irclickid]));
+            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $entityId, 'irclickid' => $irclickid]));
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
             $responseContent = $responseBody->getContents();
