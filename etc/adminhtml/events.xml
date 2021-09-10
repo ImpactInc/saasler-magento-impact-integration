@@ -9,9 +9,6 @@
     <event name="admin_system_config_changed_section_impact_integration">
         <observer name="custom_admin_system_config_changed_section_impact_integration" instance="Impact\Integration\Observer\ConfigChange"/>
     </event>
-    <event name="sales_order_invoice_pay">
-        <observer name="webpos_sales_order_invoice_pay" instance="Impact\Integration\Observer\SalesOrderInvoicePay" />
-    </event> 
     <event name="sales_order_creditmemo_refund">
         <observer name="webpos_sales_order_creditmemo_refund" instance="Impact\Integration\Observer\SalesOrderCreditmemoRefund" />
     </event>

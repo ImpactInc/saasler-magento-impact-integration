@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+/**
+ * @author Impact
+ * @package Impact_Integration
+ */
+-->
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
+    <event name="checkout_onepage_controller_success_action">
+        <observer name="webpos_checkout_onepage_controller_success_action" instance="Impact\Integration\Observer\CheckoutOnePageControllerSuccessAction" />
+    </event>
+</config>
