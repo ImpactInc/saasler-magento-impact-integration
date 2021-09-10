@@ -11,16 +11,15 @@ namespace Impact\Integration\Observer;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
 use Impact\Integration\Service\ImpactApiService; 
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Framework\Stdlib\CookieManagerInterface;
 use Impact\Integration\Helper\Data;
 
 /**
- * Class SalesOrderInvoicePay
+ * Class CheckoutOnePageControllerSuccessAction
  *
  * @package Impact\Integration\Observer
  */
-class SalesOrderInvoicePay implements ObserverInterface
+class CheckoutOnePageControllerSuccessAction implements ObserverInterface
 {
     /**
      * @var CookieManagerInterface
@@ -33,7 +32,7 @@ class SalesOrderInvoicePay implements ObserverInterface
     private $helper; 
 
     /**
-     * SalesOrderInvoicePay constructor.
+     * CheckoutOnePageControllerSuccessAction constructor.
      *
      * @param CookieManagerInterface $cookieManager
      * @param Data $helper 
@@ -56,12 +55,11 @@ class SalesOrderInvoicePay implements ObserverInterface
         // Validate if module is enable
         if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl())  && !is_null($this->helper->getConversionUrl()) ) {
             // Get data from order
-            $invoice = $observer->getEvent()->getInvoice();
-            $order = $invoice->getOrder();
-            $incrementId = $order->getIncrementId();
+            $order = $observer->getEvent()->getOrder();           
+            $entityId = $order->getEntityId();
             $irclickid = $this->cookieManager->getCookie('irclickid');
 
-            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $incrementId, 'irclickid' => $irclickid]));
+            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $entityId, 'irclickid' => $irclickid]));
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
             $responseContent = $responseBody->getContents();
