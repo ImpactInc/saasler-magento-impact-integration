@@ -26,12 +26,12 @@
                     const date = new Date();
                     date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
                     const expires = "expires="+date.toUTCString();
-                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/";
+                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/;secure";
                 }
                 function onPageLoad() {
                     const irclickid = getParameterByName('irclickid');
                     if (irclickid) setCookie('irclickid', irclickid, 30);
-                };
+                }
                 onPageLoad();
             })();
         </script>
