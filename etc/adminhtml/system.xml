@@ -26,8 +26,13 @@
             <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0"
                    showInStore="0">
                 <label> Existing Customer </label>
-                
+                           
                 <comment>If you are an existing Partnership Cloud customer, set up the integration below. You can update your settings at any time.</comment>
+                <field id="additional_comment_integration" translate="label comment" type="label" sortOrder="10" showInDefault="1">
+                    <label><![CDATA[<strong> Impact Integration </strong>]]></label>
+                    <comment><![CDATA[Remember to activate Impact Integration (System->Integrations->Activate ImpactIntegration) before saving your Impact Settings. ]]></comment>
+                    <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
+                </field>
 
                 <field id="account_sid" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <validate>required-entry no-marginal-whitespace no-whitespace validate-length maximum-length-34</validate>
@@ -81,6 +86,7 @@
                     href="https://impact.com/partnership-cloud/">click here</a> to learn how Partnership Cloud can help grow and optimize your Partnership program.]]></comment>
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
                 </field>
+                
             </group>
             <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Manually Uninstall</label>
