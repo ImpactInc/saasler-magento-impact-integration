@@ -195,6 +195,10 @@ class ConfigChange implements ObserverInterface
 
                 // Save conversion_url, refund_url and universal tracking tag with irc click Id Function
                 $this->configData->refresh($urls);
+            } else {
+                // Delete Impact Credentials
+                $this->configData->deleteImpactIntegrationConfigData();
+                throw new NoSuchEntityException(__('You do not have Impact integration activated. We strongly recommend activating the Impact integration before saving the Impact configuration.'));
             }
         }
 
