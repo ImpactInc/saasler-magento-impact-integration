@@ -45,7 +45,7 @@ class IntegrationScript extends Template
      *
      * @return bool
      */
-    public function isActive(): bool
+    public function isActive()
     {
         /**
          * @TODO: Check if the module is active to show the scripts in the header.
