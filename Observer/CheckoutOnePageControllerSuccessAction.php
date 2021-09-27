@@ -6,18 +6,18 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace Impact\Integration\Observer;
+namespace impact_tech\module-magento-integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use Impact\Integration\Service\ImpactApiService; 
+use impact_tech\module-magento-integration\Service\ImpactApiService; 
 use Magento\Framework\Stdlib\CookieManagerInterface;
-use Impact\Integration\Helper\Data;
+use impact_tech\module-magento-integration\Helper\Data;
 
 /**
  * Class CheckoutOnePageControllerSuccessAction
  *
- * @package Impact\Integration\Observer
+ * @package impact_tech\module-magento-integration\Observer
  */
 class CheckoutOnePageControllerSuccessAction implements ObserverInterface
 {

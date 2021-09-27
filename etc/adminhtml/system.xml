@@ -94,7 +94,7 @@
 
                 If you want to install the extension again, you must run the installation steps from the beginning.]]></comment>
                 <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
-                    <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
+                    <frontend_model>impact_tech\module-magento-integration\Block\System\Config\Button</frontend_model>
                      <label></label>
                 </field>
             </group>

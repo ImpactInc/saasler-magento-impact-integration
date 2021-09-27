@@ -6,7 +6,7 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace Impact\Integration\Setup;
+namespace impact_tech\module-magento-integration\Setup;
 
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
@@ -16,7 +16,7 @@ use Magento\Framework\Setup\InstallDataInterface;
 /**
  * Class InstallData
  *
- * @package Impact\Integration\Setup
+ * @package impact_tech\module-magento-integration\Setup
  */
 class InstallData implements InstallDataInterface
 {
