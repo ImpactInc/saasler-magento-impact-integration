@@ -6,12 +6,12 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Controller\Adminhtml\System\Config;
+namespace Impact\Integration\Controller\Adminhtml\System\Config;
  
-use impact_tech\module-magento-integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
-use impact_tech\module-magento-integration\Model\ConfigData;
+use Impact\Integration\Model\ConfigData;
 use Psr\Log\LoggerInterface;
 use Magento\Backend\App\Action\Context;
 use Magento\Backend\App\Action;
@@ -19,7 +19,7 @@ use Magento\Backend\App\Action;
 /**
  * Class Button
  *
- * @package impact_tech\module-magento-integration\Controller\Adminhtml\System\Config
+ * @package Impact\Integration\Controller\Adminhtml\System\Config
  */
 class Button extends Action
 {
@@ -44,7 +44,7 @@ class Button extends Action
 
     /**
      *
-     * @var impact_tech\module-magento-integration\Model\ConfigData
+     * @var Impact\Integration\Model\ConfigData
      */
     private $configData;
 

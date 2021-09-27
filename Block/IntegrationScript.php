@@ -6,16 +6,16 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Block;
+namespace Impact\Integration\Block;
 
-use impact_tech\module-magento-integration\Helper\Data;
+use Impact\Integration\Helper\Data;
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
 /**
  * Class IntegrationScript
  *
- * @package impact_tech\module-magento-integration\Block
+ * @package Impact\Integration\Block
  */
 class IntegrationScript extends Template
 {

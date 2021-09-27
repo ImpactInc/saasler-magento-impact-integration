@@ -7,9 +7,9 @@
 -->
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Event/etc/events.xsd">
     <event name="admin_system_config_changed_section_impact_integration">
-        <observer name="custom_admin_system_config_changed_section_impact_integration" instance="impact_tech\module-magento-integration\Observer\ConfigChange"/>
+        <observer name="custom_admin_system_config_changed_section_impact_integration" instance="Impact\Integration\Observer\ConfigChange"/>
     </event>
     <event name="sales_order_creditmemo_refund">
-        <observer name="webpos_sales_order_creditmemo_refund" instance="impact_tech\module-magento-integration\Observer\SalesOrderCreditmemoRefund" />
+        <observer name="webpos_sales_order_creditmemo_refund" instance="Impact\Integration\Observer\SalesOrderCreditmemoRefund" />
     </event>
 </config>

@@ -6,19 +6,19 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Setup;
+namespace Impact\Integration\Setup;
 
-use impact_tech\module-magento-integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use impact_tech\module-magento-integration\Model\ConfigData;
+use Impact\Integration\Model\ConfigData;
 
 /**
  * Class Uninstall
  *
- * @package impact_tech\module-magento-integration\Setup
+ * @package Impact\Integration\Setup
  */
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
@@ -53,7 +53,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 
     /**
      *
-     * @var impact_tech\module-magento-integration\Model\ConfigData
+     * @var Impact\Integration\Model\ConfigData
      */
     private $configData;
 

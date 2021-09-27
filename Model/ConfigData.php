@@ -6,16 +6,16 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Model;
+namespace Impact\Integration\Model;
 
-use impact_tech\module-magento-integration\Helper\Data;
+use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
 
 
 /**
  * Class ConfigData
  *
- * @package impact_tech\module-magento-integration\Model
+ * @package Impact\Integration\Model
  */
 class ConfigData
 {
@@ -25,7 +25,7 @@ class ConfigData
     protected $_resourceConfig;
 
     /**
-     * @var impact_tech\module-magento-integration\Helper\Data
+     * @var Impact\Integration\Helper\Data
      */
     protected $helper;
 

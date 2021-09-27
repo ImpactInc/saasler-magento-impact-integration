@@ -6,7 +6,7 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Helper;
+namespace Impact\Integration\Helper;
 
 use Magento\Framework\App\Helper\AbstractHelper;
 use Magento\Store\Model\ScopeInterface;
@@ -14,7 +14,7 @@ use Magento\Store\Model\ScopeInterface;
 /**
  * Class Data
  *
- * @package impact_tech\module-magento-integration\Helper
+ * @package Impact\Integration\Helper
  */
 class Data extends AbstractHelper
 {

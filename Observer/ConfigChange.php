@@ -6,18 +6,18 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Observer;
+namespace Impact\Integration\Observer;
 
-use impact_tech\module-magento-integration\Model\ConfigData;
+use Impact\Integration\Model\ConfigData;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
-use impact_tech\module-magento-integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-use impact_tech\module-magento-integration\Helper\Data;
+use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
 use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
@@ -25,7 +25,7 @@ use Magento\Framework\App\Cache\Frontend\Pool;
 /**
  * Class ConfigChange
  *
- * @package impact_tech\module-magento-integration\Observer
+ * @package Impact\Integration\Observer
  */
 class ConfigChange implements ObserverInterface
 {
@@ -77,7 +77,7 @@ class ConfigChange implements ObserverInterface
 
     /**
      *
-     * @var impact_tech\module-magento-integration\Model\ConfigData;
+     * @var Impact\Integration\Model\ConfigData;
      */
     private $configData;
 

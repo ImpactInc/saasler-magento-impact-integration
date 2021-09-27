@@ -6,7 +6,7 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Block\System\Config;
+namespace Impact\Integration\Block\System\Config;
 
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Backend\Block\Template\Context;
@@ -14,7 +14,7 @@ use Magento\Backend\Block\Template\Context;
 /**
  * Class Button
  *
- * @package Iimpact_tech\module-magento-integration\Block\System\Config
+ * @package IImpact\Integration\Block\System\Config
  */
 class Button extends Field
 {

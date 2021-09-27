@@ -6,7 +6,7 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace impact_tech\module-magento-integration\Service;
+namespace Impact\Integration\Service;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
@@ -16,7 +16,7 @@ use Magento\Framework\Exception\NoSuchEntityException;
 /**
  * Class ImpactApiService
  * 
- * @package impact_tech\module-magento-integration\Service
+ * @package Impact\Integration\Service
  */
 class ImpactApiService
 {
