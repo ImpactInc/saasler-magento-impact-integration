@@ -1,8 +1,8 @@
 {
-    "name": "impact/module-magento-integration",
+    "name": "impact-tech/module-magento-integration",
     "description": "Magento Impact Integration",
     "type": "magento2-module",
-    "version": "2.2.6",
+    "version": "2.2.7",
     "autoload": {
        "files": [ "registration.php" ],
        "psr-4": {
