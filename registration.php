@@ -3,7 +3,7 @@
 * Impact: Partnership Cloud for Magento
 *
 * @author      Impact
-* @package     Impact_Itegration
+* @package     Impact_Integration
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
