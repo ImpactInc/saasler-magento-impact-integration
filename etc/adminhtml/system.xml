@@ -67,6 +67,7 @@
                 </field>
 
                 <field id="universal_tracking_tag" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry</validate>
                     <label>Universal Tracking Tag</label>
                     <comment>
                         You can find this in your Impact Account > Settings > Tracking > General > Universal Tracking Tag field
