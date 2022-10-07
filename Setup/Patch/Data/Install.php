@@ -20,7 +20,7 @@ use Magento\Store\Model\StoreManagerInterface;
  *
  * @package Impact\Integration\Setup
  */
-class InstallData implements DataPatchInterface
+class Install implements DataPatchInterface
 {
     /**
      * API request endpoint install
