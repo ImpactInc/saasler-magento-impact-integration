@@ -6,12 +6,12 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace Impact\Integration\Setup;
+namespace Impact\Integration\Setup\Patch\Data;
 
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Integration\Model\ConfigBasedIntegrationManager;
-use Magento\Framework\Setup\InstallDataInterface;
+use Magento\Framework\Setup\Patch\DataPatchInterface;
 use Impact\Integration\Service\ImpactApiService; 
 use Magento\Store\Model\StoreManagerInterface;
 
@@ -20,7 +20,7 @@ use Magento\Store\Model\StoreManagerInterface;
  *
  * @package Impact\Integration\Setup
  */
-class InstallData implements InstallDataInterface
+class InstallData implements DataPatchInterface
 {
     /**
      * API request endpoint install
