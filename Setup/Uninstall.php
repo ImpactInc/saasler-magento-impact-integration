@@ -6,7 +6,7 @@
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
 
-namespace Impact\Integration\Setup\Patch\Data;
+namespace Impact\Integration\Setup;
 
 use Impact\Integration\Service\ImpactApiService; 
 use Magento\Integration\Api\IntegrationServiceInterface;
