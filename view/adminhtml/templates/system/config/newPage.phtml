@@ -1,0 +1,302 @@
+<?php
+/**
+* Impact: Partnership Cloud for Magento
+*
+* @package     Impact_Integration
+* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+*/
+$account_id = $this->data_from_db['account_id']??'';
+$auth_token = $this->data_from_db['auth_token']??'';
+$program_id = $this->data_from_db['program_id']??'';
+$event_type_id = $this->data_from_db['event_type_id']??'';
+$universal_tracking_tag = $this->data_from_db['universal_tracking_tag']??'';
+
+$account_id = $account_id ? '**********'.substr($account_id, -4):$account_id;
+$auth_token = $auth_token ? '**********'.substr($auth_token, -4):$auth_token;
+
+?>
+<script>
+require([
+    'jquery',
+    'prototype',
+], function(jQuery){
+
+    var collectSpan = jQuery('#collect_span');
+
+    function showConfig() {
+        collectSpan.find('.landing').hide();
+        collectSpan.find('.settings_page').show();
+    }
+
+    jQuery('#lpbtnid').click(function () {
+        showConfig ();
+    });
+});
+</script>
+
+<span class="collect-indicator" id="collect_span">
+<div class="landing" style="display:block; padding-left:80px">
+  <div style="magin-left:100px">
+                <div>
+                <img src="https://uploaddeimagens.com.br/images/004/171/990/original/Screen_Shot_2022-11-21_at_22.33.23.png?1669080845" style="margin-left:50px" width="210" height="90">
+                </div>
+                <div style="display: inline-block; !important">
+                <h1> <strong> Launch your affiliate and <br>  influencer program in  <br> minutes </strong></h1>
+                    For as little as <span style="color:red">$30/month</span> you can: 
+                    <br> <br> 
+                    <div style="padding-left:20px">
+                        <ul>
+                        <li> Integrate your Magento store hassle-free</li>
+                        <li>Get matched with the right affiliate and influencers</li>
+                        <li>Accurately track affiliate and influencer performance</li>
+                        <li>Automate partner payments</li>
+                        </ul>
+                    </div>
+                </div>
+                <div style="display: inline-block; !important">
+                    <img src="https://uploaddeimagens.com.br/images/004/171/988/original/Screen_Shot_2022-11-21_at_22.28.37.png?1669080546" style="margin-left:50px" width="268" height="260">
+                </div>
+                <div>
+                    <a target="_blank" href="https://impact-referral-partnerships.sjv.io/vnAMAW">
+                        <img src="https://uploaddeimagens.com.br/images/004/172/010/original/Screen_Shot_2022-11-21_at_22.57.42.png?1669082301" style="margin-left:50px" width="250" height="60">
+                    </a>
+                </div>
+                <div>
+                    <a target="_blank" href="https://impact.com/adobecommerce-plans/?utm_source=adobecommerce&utm_medium=tech_partnerships&utm_campaign=applisting_learnmore&utm_content=learn_more_pricing" style="margin-left:90px">Learn more about pricing</a>
+                </div>
+                <div>
+                    <img src="https://uploaddeimagens.com.br/images/004/172/015/original/Screen_Shot_2022-11-21_at_23.03.47.png?1669082724" style="margin-left:20px" width="650" height="75">
+                </div>
+                <div>
+                    <img src="https://uploaddeimagens.com.br/images/004/172/017/original/Screen_Shot_2022-11-21_at_23.11.18.png?1669083104" style="margin-left:10px" width="650" height="550">
+                </div>
+                <div>
+                    <a target="_blank" href="https://impact-referral-partnerships.sjv.io/vnAMAW">
+                        <img src="https://uploaddeimagens.com.br/images/004/172/031/original/Screen_Shot_2022-11-21_at_23.34.18.png?1669084473" width="670" height="180">
+                    </a>
+                </div>
+                <div style="margin-left:140px">
+                    <br>
+                    Already have an impact.com account? 
+                    <a href="#" id="lpbtnid">Set up your integration</a>
+                </div>
+        </div>
+    </div>
+
+<div class="settings_page" style="display:none">
+<div class="section-config active"><div class="entry-edit-head admin__collapsible-block"><span id="impact_integration_existing_customer-link" class="entry-edit-head-link"></span><a id="impact_integration_existing_customer-head" href="#impact_integration_existing_customer-link" class="open"> Existing Customer </a><script type="text/javascript">    function eventListenerqdFfHqZlTb () {
+        event.preventDefault();Fieldset.toggleCollapse('impact_integration_existing_customer', 'https://staging-magento244.saasstg.com/admin/admin/system_config/state/key/c6d437b43863420b394ce0f28120770099f833484d4ba126f532018451241f75/'); return false;;
+    }
+    var listenedElementqdFfHqZlTbArray = document.querySelectorAll("a#impact_integration_existing_customer-head");
+    if(listenedElementqdFfHqZlTbArray.length !== 'undefined'){
+        listenedElementqdFfHqZlTbArray.forEach(function(element) {
+            if (element) {
+                element.onclick = function (event) {
+                    var targetElement = element;
+                    if (event && event.target) {
+                        targetElement = event.target;
+                    }
+                    return eventListenerqdFfHqZlTb.apply(targetElement);
+                };
+            }
+        });
+    }</script>
+    </div>
+    <!-- form of configurations -->
+    <input id="impact_integration_existing_customer-state" name="config_state[impact_integration_existing_customer]" type="hidden" value="1">
+    <fieldset class="config admin__collapsible-block" id="impact_integration_existing_customer" style="">
+        <legend> Existing Customer </legend>
+        <div class="comment">If you are an existing Partnership Cloud customer, set up the integration below. You can update your settings at any time.</div>
+        <table cellspacing="0" class="form-list"><colgroup class="label"></colgroup>
+        <colgroup class="value"></colgroup>
+        <colgroup class="scope-label"></colgroup>
+        <colgroup class=""></colgroup>
+        <tbody>
+            <tr id="row_impact_integration_existing_customer_additional_comment_integration">
+                <td colspan="3">
+                    <div class="config-additional-comment">
+                        <div class="config-additional-comment-title">
+                            <strong> Impact Integration </strong>
+                        </div>
+                        <div class="config-additional-comment-content">Remember to activate Impact Integration (System-&gt;Integrations-&gt;Activate ImpactIntegration) before saving your Impact Settings. </div>
+                    </div>
+                </td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_account_sid">
+                <td class="label">
+                    <label for="impact_integration_existing_customer_account_sid">
+                        <span data-config-scope="[STORE VIEW]">Impact Account SID</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <input placeholder="<?= $account_id?>" id="impact_integration_existing_customer_account_sid" name="groups[existing_customer][fields][account_sid][value]" data-ui-id="text-groups-existing-customer-fields-account-sid-value" class=" required-entry no-marginal-whitespace no-whitespace validate-length maximum-length-34 input-text admin__control-text" type="text" formelementhookid="elemIddYDan4PaV9">
+                    <p class="note">
+                        <span>
+                        You can find this in your Impact account &gt; Settings &gt; API
+                        </span>
+                    </p>
+                </td>
+                <td class=""></td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_auth_token">
+                <td class="label">
+                    <label for="impact_integration_existing_customer_auth_token">
+                        <span data-config-scope="[STORE VIEW]">Auth Token</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <input placeholder="<?= $auth_token?>" id="impact_integration_existing_customer_auth_token" name="groups[existing_customer][fields][auth_token][value]" data-ui-id="text-groups-existing-customer-fields-auth-token-value" class=" required-entry no-marginal-whitespace no-whitespace input-text admin__control-text" type="text" formelementhookid="elemIdccQOy1bxIu">
+                    <p class="note">
+                        <span>
+                        You can find this in your Impact account &gt; Settings &gt; API
+                        </span>
+                    </p>
+                </td>
+                <td class=""></td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_program_id">
+                <td class="label">
+                    <label for="impact_integration_existing_customer_program_id">
+                        <span data-config-scope="[STORE VIEW]">Program ID</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <input id="impact_integration_existing_customer_program_id" name="groups[existing_customer][fields][program_id][value]" data-ui-id="text-groups-existing-customer-fields-program-id-value" value="<?= $program_id ?>" class=" required-entry no-marginal-whitespace no-whitespace integer validate-length maximum-length-5 input-text admin__control-text" type="text" formelementhookid="elemIdsw55Ts44Ty">
+                    <p class="note">
+                        <span>
+                            You can find this in your Impact account. At the top left, click the Program Name &gt; Programs
+                        </span>
+                    </p>
+                </td>
+                <td class=""></td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_event_type_id">
+                <td class="label">
+                    <label for="impact_integration_existing_customer_event_type_id">
+                        <span data-config-scope="[STORE VIEW]">Event Type ID</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <input id="impact_integration_existing_customer_event_type_id" name="groups[existing_customer][fields][event_type_id][value]" data-ui-id="text-groups-existing-customer-fields-event-type-id-value" value="<?= $event_type_id ?>" class=" required-entry no-marginal-whitespace no-whitespace integer input-text admin__control-text" type="text" formelementhookid="elemIdYmbT8lefnQ">
+                    <p class="note">
+                        <span>
+                            You can find this in your Impact account &gt; Settings &gt; Tracking &gt; Event Types
+                        </span>
+                    </p>
+                </td>
+                <td class=""></td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_universal_tracking_tag">
+                <td class="label">
+                    <label for="impact_integration_existing_customer_universal_tracking_tag">
+                        <span data-config-scope="[STORE VIEW]">Universal Tracking Tag</span>
+                    </label>
+                </td>
+                <td class="value">
+                    <textarea id="impact_integration_existing_customer_universal_tracking_tag" name="groups[existing_customer][fields][universal_tracking_tag][value]" class=" required-entry textarea admin__control-textarea" rows="2" cols="15" formelementhookid="elemIdLCisWxtlm3" data-ui-id="textarea-groups-existing-customer-fields-universal-tracking-tag-value"><?= $universal_tracking_tag; ?></textarea>
+                    <p class="note">
+                        <span>
+                            You can find this in your Impact Account &gt; Settings &gt; Tracking &gt; General &gt; Universal Tracking Tag field
+                        </span>
+                    </p>
+                </td>
+                <td class=""></td>
+            </tr>
+            <tr id="row_impact_integration_existing_customer_additional_comment">
+                <td colspan="3">
+                    <div class="config-additional-comment">
+                        <div class="config-additional-comment-title">
+                            <strong> New Customer </strong>
+                            </div>
+                            <div class="config-additional-comment-content">If you are new to Impact, 
+                                <a target="_blank" href="https://impact.com/partnership-cloud/">click here</a> to learn how Partnership Cloud can help grow and optimize your Partnership program.
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    </fieldset>
+<script>//<![CDATA[
+require(['prototype'], function(){Fieldset.applyCollapse('impact_integration_existing_customer');});
+//]]></script>
+    </div>
+
+
+    <!-- Unninstall button -->
+    <div class="active">
+        <div class="entry-edit-head admin__collapsible-block"><span id="impact_integration_uninstall-link" class="entry-edit-head-link"></span><a id="impact_integration_uninstall-head" href="#impact_integration_uninstall-link" class="open">Manually Uninstall</a><script type="text/javascript">    function eventListenerEx8srgWNR2 () {
+        event.preventDefault();Fieldset.toggleCollapse('impact_integration_uninstall', 'https://staging-magento244.saasstg.com/admin/admin/system_config/state/key/c6d437b43863420b394ce0f28120770099f833484d4ba126f532018451241f75/'); return false;;
+    }
+    var listenedElementEx8srgWNR2Array = document.querySelectorAll("a#impact_integration_uninstall-head");
+    if(listenedElementEx8srgWNR2Array.length !== 'undefined'){
+        listenedElementEx8srgWNR2Array.forEach(function(element) {
+            if (element) {
+                element.onclick = function (event) {
+                    var targetElement = element;
+                    if (event && event.target) {
+                        targetElement = event.target;
+                    }
+                    return eventListenerEx8srgWNR2.apply(targetElement);
+                };
+            }
+        });
+    }</script></div><input id="impact_integration_uninstall-state" name="config_state[impact_integration_uninstall]" type="hidden" value="1"><fieldset class="config admin__collapsible-block" id="impact_integration_uninstall" style=""><legend>Manually Uninstall</legend><div class="comment">For a manual uninstall, you must first click the <strong>Uninstall</strong> button to delete the information registered in the database and in Impact.  You must also delete the Impact/Integration folder in the app/code path. 
+
+                If you want to install the extension again, you must run the installation steps from the beginning.
+            
+    <script>
+        require([
+            'jquery',
+            'prototype',
+        ], function(jQuery){
+
+            var collectSpan = jQuery('#collect_span');
+
+            function callUninstall() {
+                params = {
+                };
+                new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+                    parameters:     params,
+                    loaderArea:     false,
+                    asynchronous:   true,
+                    onCreate: function() {
+                            collectSpan.find('.collected').hide();
+                            collectSpan.find('.processing').show();
+                            jQuery('#collect_message_span').text('');
+                    },
+                    onSuccess: function(transport) {
+                            collectSpan.find('.processing').hide();
+
+                            var response = transport.responseText || "no response text";
+                            var resultText = '';
+                            if (response.status > 200) {
+                                resultText = response.statusText;
+                            } else {
+                                resultText = 'Success';
+                                collectSpan.find('.collected').show();
+                            }
+                            jQuery('#collect_message_span').text(resultText);
+                    }
+                });
+            }
+
+            jQuery('#btnid').click(function () {
+                callUninstall ();
+            });
+        });
+        </script>
+            <span class="collect-indicator" id="collect_span">
+            <br> 
+            <br> 
+            <p style="padding-left:40%"><?php echo $block->getButtonHtml() ?> 
+            <img class="processing" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
+            <img class="collected" hidden="hidden" alt="Collected" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+            <span id="collect_message_span"></span>
+        </p>
+        </span>
+        </div>
+        </div>
+        </fieldset>
+        </div>
+</span>
