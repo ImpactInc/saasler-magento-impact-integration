@@ -7,14 +7,99 @@
         </tab>
 
         <!-- tab -->
-         <section id="impact_integration" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
-            <label>Impact Settings </label>
+         <section id="impact_integration_signup" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Sign up for impact.com </label>
             <tab>impact</tab>
             <resource>Impact_Integration::Impact_Integration</resource>
-            <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
+            <group id="existing_customer_signup" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1"
                    showInStore="1">
-                <label> Existing Customer </label>
+                <label> Quick start </label>
                 <frontend_model>Impact\Integration\Block\System\Config\NewPage</frontend_model>
+            </group>
+        </section>
+        <!-- tab -->
+        <section id="impact_integration" translate="label" type="text" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label>Impact Settings</label>
+            <tab>impact</tab>
+            <resource>Impact_Integration::Impact_Integration</resource>
+            <!-- <group id="general" translate="label" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>General Configuration</label>
+                <field id="enabled" translate="label comment" type="select" sortOrder="10" showInDefault="1" showInWebsite="0" showInStore="0" canRestore="1">
+                    <label>Enable</label>
+                    <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                </field>
+            </group> -->
+            <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
+                   <label> Existing Customer </label>
+                   <comment>If you are an existing Partnership Cloud customer, set up the integration below. You can update your settings at any time.</comment>
+                <field id="additional_comment_integration" translate="label comment" type="label" sortOrder="10" showInDefault="1">
+                    <label><![CDATA[<strong> Impact Integration </strong>]]></label>
+                    <comment><![CDATA[Remember to activate Impact Integration (System->Integrations->Activate ImpactIntegration) before saving your Impact Settings. ]]></comment>
+                    <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
+                </field>
+
+                <field id="account_sid" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry no-marginal-whitespace no-whitespace validate-length maximum-length-34</validate>
+                    <label>Impact Account SID</label>
+                    <comment>
+                        You can find this in your Impact account > Settings > API
+                    </comment>
+                </field>
+
+                <field id="auth_token" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry no-marginal-whitespace no-whitespace</validate>
+                    <label>Auth Token</label>
+                    <comment>
+                        You can find this in your Impact account > Settings > API
+                    </comment>
+                </field>
+
+                <field id="program_id" translate="label comment" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry no-marginal-whitespace no-whitespace integer validate-length maximum-length-5</validate>
+                    <label>Program ID</label>
+                    <comment>
+                        You can find this in your Impact account. At the top left, click the Program Name > Programs
+                    </comment>
+                </field>
+
+                <field id="event_type_id" translate="label comment" type="text" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry no-marginal-whitespace no-whitespace integer</validate>
+                    <label>Event Type ID</label>
+                    <comment>
+                        You can find this in your Impact account > Settings > Tracking > Event Types
+                    </comment>
+                </field>
+
+                <field id="universal_tracking_tag" translate="label comment" type="textarea" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="1">
+                    <validate>required-entry</validate>
+                    <label>Universal Tracking Tag</label>
+                    <comment>
+                        You can find this in your Impact Account > Settings > Tracking > General > Universal Tracking Tag field
+                    </comment>
+                </field>
+
+                <field id="utt_default" translate="label" type="text" sortOrder="70" showInDefault="0" showInWebsite="0" showInStore="1">
+                </field>
+                <field id="conversion_url" translate="label" type="text" sortOrder="80" showInDefault="0" showInWebsite="0" showInStore="1">
+                </field>
+                <field id="refund_url" translate="label" type="text" sortOrder="90" showInDefault="0" showInWebsite="0" showInStore="1">
+                </field>
+
+                <field id="additional_comment" translate="label comment" type="label" sortOrder="60" showInDefault="1">
+                    <label><![CDATA[<strong> New Customer </strong>]]></label>
+                    <comment><![CDATA[If you are new to Impact, <a target="_blank"
+                    href="https://impact.com/partnership-cloud/">click here</a> to learn how Partnership Cloud can help grow and optimize your Partnership program.]]></comment>
+                    <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
+                </field>
+            </group>
+            <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
+                <label>Manually Uninstall</label>
+                <comment><![CDATA[For a manual uninstall, you must first click the <strong>Uninstall</strong> button to delete the information registered in the database and in Impact.  You must also delete the Impact/Integration folder in the app/code path. 
+                If you want to install the extension again, you must run the installation steps from the beginning.]]></comment>
+                <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+                    <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
+                     <label></label>
+                </field>
             </group>
         </section>
      </system>
