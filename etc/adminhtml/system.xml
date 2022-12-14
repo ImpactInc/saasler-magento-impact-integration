@@ -31,7 +31,7 @@
             </group> -->
             <group id="existing_customer" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="0" showInStore="0">
                    <label> Existing Customer </label>
-                   <comment>If you are an existing Partnership Cloud customer, set up the integration below. You can update your settings at any time.</comment>
+                   <comment>If you are an existing impact.com customer, set up the integration below. You can update your settings at any time.</comment>
                 <field id="additional_comment_integration" translate="label comment" type="label" sortOrder="10" showInDefault="1">
                     <label><![CDATA[<strong> Impact Integration </strong>]]></label>
                     <comment><![CDATA[Remember to activate Impact Integration (System->Integrations->Activate ImpactIntegration) before saving your Impact Settings. ]]></comment>
@@ -88,7 +88,7 @@
                 <field id="additional_comment" translate="label comment" type="label" sortOrder="60" showInDefault="1">
                     <label><![CDATA[<strong> New Customer </strong>]]></label>
                     <comment><![CDATA[If you are new to Impact, <a target="_blank"
-                    href="https://impact.com/partnership-cloud/">click here</a> to learn how Partnership Cloud can help grow and optimize your Partnership program.]]></comment>
+                    href="http://impact-referral-partnerships.sjv.io/adobecommerce">click here</a> to learn how impact.com can help grow and optimize your Partnership program.]]></comment>
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
                 </field>
             </group>
