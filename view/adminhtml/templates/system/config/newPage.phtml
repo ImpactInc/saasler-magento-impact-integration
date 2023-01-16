@@ -5,15 +5,6 @@
 * @package     Impact_Integration
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
-$account_id = $this->data_from_db['account_id']??'';
-$auth_token = $this->data_from_db['auth_token']??'';
-$program_id = $this->data_from_db['program_id']??'';
-$event_type_id = $this->data_from_db['event_type_id']??'';
-$universal_tracking_tag = $this->data_from_db['universal_tracking_tag']??'';
-
-$account_id = $account_id ? '**********'.substr($account_id, -4):$account_id;
-$auth_token = $auth_token ? '**********'.substr($auth_token, -4):$auth_token;
-
 ?>
 <script>
 require([
