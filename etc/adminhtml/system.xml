@@ -38,7 +38,7 @@
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
                 </field>
 
-                <field id="account_sid" translate="label comment" type="text" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="account_sid" translate="label comment" type="Impact\Integration\Block\Adminhtml\Form\Field\MaskText" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
                     <validate>required-entry no-marginal-whitespace no-whitespace validate-length maximum-length-34</validate>
                     <label>Impact Account SID</label>
                     <comment>
@@ -46,7 +46,7 @@
                     </comment>
                 </field>
 
-                <field id="auth_token" translate="label comment" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+                <field id="auth_token" translate="label comment" type="Impact\Integration\Block\Adminhtml\Form\Field\MaskText" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
                     <validate>required-entry no-marginal-whitespace no-whitespace</validate>
                     <label>Auth Token</label>
                     <comment>
