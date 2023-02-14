@@ -39,7 +39,7 @@
                 </field>
 
                 <field id="account_sid" translate="label comment" type="Impact\Integration\Block\Adminhtml\Form\Field\MaskText" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <validate>required-entry no-marginal-whitespace no-whitespace validate-length maximum-length-34</validate>
+                    <validate>required-entry no-marginal-whitespace no-whitespace validate-length minimum-length-5 maximum-length-34</validate>
                     <label>Impact Account SID</label>
                     <comment>
                         You can find this in your Impact account > Settings > API
@@ -47,7 +47,7 @@
                 </field>
 
                 <field id="auth_token" translate="label comment" type="Impact\Integration\Block\Adminhtml\Form\Field\MaskText" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
-                    <validate>required-entry no-marginal-whitespace no-whitespace</validate>
+                    <validate>required-entry no-marginal-whitespace no-whitespace validate-length minimum-length-5</validate>
                     <label>Auth Token</label>
                     <comment>
                         You can find this in your Impact account > Settings > API
@@ -94,7 +94,7 @@
             </group>
             <group id="uninstall" translate="label" type="text" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="1">
                 <label>Manually Uninstall</label>
-                <comment><![CDATA[For a manual uninstall, you must first click the <strong>Uninstall</strong> button to delete the information registered in the database and in Impact.  You must also delete the Impact/Integration folder in the app/code path. 
+                <comment><![CDATA[For a manual uninstall, you must first click the <strong>Uninstall</strong> button to delete the information registered in the database and in Impact.  You must also delete the Impact/Integration folder in the app/code path.
                 If you want to install the extension again, you must run the installation steps from the beginning.]]></comment>
                 <field id="build_indexes" translate="label comment tooltip" type="button" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
                     <frontend_model>Impact\Integration\Block\System\Config\Button</frontend_model>
