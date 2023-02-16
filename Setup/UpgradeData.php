@@ -12,7 +12,6 @@ namespace Impact\Integration\Setup;
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\UpgradeDataInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
-//use Magento\Framework\Setup\InstallDataInterface;
 use Magento\Integration\Model\ConfigBasedIntegrationManager;
 
 class UpgradeData implements UpgradeDataInterface
