@@ -9,10 +9,11 @@
 namespace Impact\Integration\Observer;
 
 use Impact\Integration\Model\ConfigData;
+use Impact\Integration\Utils\Impact\ImpactHttpClient;
 use Magento\Framework\Event\ObserverInterface;
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\App\RequestInterface;
-use Impact\Integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService;
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
@@ -84,9 +85,9 @@ class ConfigChange implements ObserverInterface
     /**
      * ConfigChange constructor.
      * @param RequestInterface $request
-     * @param IntegrationServiceInterface $integrationService 
+     * @param IntegrationServiceInterface $integrationService
      * @param Config $resourceConfig
-     * @param  OauthServiceInterface $oauthService 
+     * @param  OauthServiceInterface $oauthService
      * @param ModuleDataSetupInterface $setup
      * @param TypeListInterface $cacheTypeList
      * @param Pool $cacheFrontendPool
@@ -94,10 +95,10 @@ class ConfigChange implements ObserverInterface
      * @param ConfigData $configData
      */
     public function __construct(
-        RequestInterface $request, 
-        IntegrationServiceInterface $integrationService, 
-        Config $resourceConfig, 
-        OauthServiceInterface $oauthService, 
+        RequestInterface $request,
+        IntegrationServiceInterface $integrationService,
+        Config $resourceConfig,
+        OauthServiceInterface $oauthService,
         ModuleDataSetupInterface $setup,
         TypeListInterface $cacheTypeList,
         Pool $cacheFrontendPool,
@@ -117,13 +118,13 @@ class ConfigChange implements ObserverInterface
     }
     /**
      * Execute Function
-     * 
+     *
      * @param Observer $observer
      */
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled()) { 
+        if ($this->helper->isEnabled()) {
             /*
              IRC Click function
             <script type="text/javascript">
@@ -156,12 +157,13 @@ class ConfigChange implements ObserverInterface
             // Production Version
             $ircClickFunction = ' <script type="text/javascript"> !function(){String.prototype.includes||(String.prototype.includes=function(e,t){"use strict";if(e instanceof RegExp)throw TypeError("first argument must not be a RegExp");return void 0===t&&(t=0),-1!==this.indexOf(e,t)}),window.location.pathname.includes("checkout")&&ire("generateClickId",function(e){!function(e,t,i){const n=new Date;n.setTime(n.getTime()+24*i*60*60*1e3);const o="expires="+n.toUTCString();document.cookie=e+"="+t+";SameSite=None;"+o+";path=/;secure"}("irclickid",e,30)})}(); </script> ';
             // Developer Version
-            //$ircClickFunction = ' <script type="text/javascript"> !function(){String.prototype.includes||(String.prototype.includes=function(t,e){"use strict";if(t instanceof RegExp)throw TypeError("first argument must not be a RegExp");return void 0===e&&(e=0),-1!==this.indexOf(t,e)}),window.location.pathname.includes("checkout")&&ire("generateClickId",function(t){!function(t,e,n){const i=new Date;i.setTime(i.getTime()+24*n*60*60*1e3),i.toUTCString(),document.cookie=t+"="+e}("irclickid",t,30)})}(); </script>';    
-            
+            //$ircClickFunction = ' <script type="text/javascript"> !function(){String.prototype.includes||(String.prototype.includes=function(t,e){"use strict";if(t instanceof RegExp)throw TypeError("first argument must not be a RegExp");return void 0===e&&(e=0),-1!==this.indexOf(t,e)}),window.location.pathname.includes("checkout")&&ire("generateClickId",function(t){!function(t,e,n){const i=new Date;i.setTime(i.getTime()+24*n*60*60*1e3),i.toUTCString(),document.cookie=t+"="+e}("irclickid",t,30)})}(); </script>';
+
             // Get credentials from Impact Setting form
             $params = $this->request->getParam('groups');
             $account_sid = $params['existing_customer']['fields']['account_sid']['value'] ? $params['existing_customer']['fields']['account_sid']['value'] : '';
             $auth_token = $params['existing_customer']['fields']['auth_token']['value'] ? $params['existing_customer']['fields']['auth_token']['value'] : '';
+            $this->validateImpactCredentials($account_sid, $auth_token);
             $program_id = $params['existing_customer']['fields']['program_id']['value'] ? $params['existing_customer']['fields']['program_id']['value'] : '';
             $event_type_id = $params['existing_customer']['fields']['event_type_id']['value'] ? $params['existing_customer']['fields']['event_type_id']['value'] : '';
             $universal_tracking_tag = $params['existing_customer']['fields']['universal_tracking_tag']['value'] ? $params['existing_customer']['fields']['universal_tracking_tag']['value'] : '';
@@ -191,14 +193,13 @@ class ConfigChange implements ObserverInterface
                 // Validate if user input UTT
                 if (isset($universal_tracking_tag) && !empty($universal_tracking_tag)) {
                     $urls['utt_default'] = $universal_tracking_tag . $ircClickFunction;
-                } 
+                }
 
                 // Save conversion_url, refund_url and universal tracking tag with irc click Id Function
                 $this->configData->refresh($urls);
             } else {
                 // Delete Impact Credentials
-                $this->configData->deleteImpactIntegrationConfigData();
-                throw new NoSuchEntityException(__('You do not have Impact integration activated. We strongly recommend activating the Impact integration before saving the Impact configuration.'));
+                $this->deleteImpactCredentials('You do not have Impact integration activated. We strongly recommend activating the Impact integration before saving the Impact configuration.');
             }
         }
 
@@ -210,7 +211,7 @@ class ConfigChange implements ObserverInterface
 
     /**
      * Get access token from Impact Integration
-     * 
+     *
      * @return String
      */
     private function getAccessToken()
@@ -231,8 +232,8 @@ class ConfigChange implements ObserverInterface
 
     /**
      * Flush cache
-     *  
-     *  @return void 
+     *
+     *  @return void
      */
     private function flushCache():void
     {
@@ -243,5 +244,34 @@ class ConfigChange implements ObserverInterface
         foreach ($this->cacheFrontendPool as $cacheFrontend) {
             $cacheFrontend->getBackend()->clean();
         }
+    }
+
+    /**
+     * Validate impact credentials
+     *  @param String $sid
+     *  @param String $token
+     *  @return void
+     */
+    private function validateImpactCredentials($sid, $token): void
+    {
+        $impactResponse = ImpactHttpClient::getCompanyInformation($sid, $token);
+        if (!$impactResponse)
+        {
+            $this->deleteImpactCredentials('Cannot validate Impact Account SID and Auth Token');
+        }
+        if ($impactResponse->failed()) {
+            $this->deleteImpactCredentials('Impact Account SID and Auth Token are invalid');
+        }
+    }
+
+    /**
+     *  Delete impact credentials
+     *  @param String $message
+     *  @return void
+     */
+    private function deleteImpactCredentials($message)
+    {
+        $this->configData->deleteImpactIntegrationConfigData();
+        throw new NoSuchEntityException(__($message));
     }
 }
