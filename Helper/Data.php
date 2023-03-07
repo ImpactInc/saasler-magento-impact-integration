@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Helper;
 
@@ -39,10 +39,10 @@ class Data extends AbstractHelper
     const XML_UTT_DEFAULT_PATH = 'impact_integration/existing_customer/utt_default';
 
      /**
-     * Get conversion url.
-     * 
-     * @return string
-     */
+      * Get conversion url.
+      *
+      * @return string
+      */
     public function getConversionUrl()
     {
         return $this->scopeConfig->getValue(static::XML_CONVERSION_URL_PATH);
@@ -50,7 +50,7 @@ class Data extends AbstractHelper
 
     /**
      * Get refund url.
-     * 
+     *
      * @return string
      */
     public function getRefundUrl()
@@ -60,7 +60,7 @@ class Data extends AbstractHelper
 
     /**
      * Get utt defaul.
-     * 
+     *
      * @return string
      */
     public function getUttDefault()
@@ -70,7 +70,7 @@ class Data extends AbstractHelper
 
     /**
      * Get Config Value.
-     * 
+     *
      * @param string $path
      * @return string
      */
@@ -81,7 +81,7 @@ class Data extends AbstractHelper
 
     /**
      * Set Store scope.
-     * 
+     *
      * @return string
      */
     public function setStoreScope()
@@ -91,7 +91,7 @@ class Data extends AbstractHelper
 
     /**
      * Get if store is enabled.
-     * 
+     *
      * @return integer
      */
     public function isEnabled()
