@@ -1,14 +1,14 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Controller\Adminhtml\System\Config;
  
-use Impact\Integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService;
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
 use Impact\Integration\Model\ConfigData;
@@ -56,7 +56,7 @@ class Button extends Action
 
     /**
      * Button constructor.
-     * 
+     *
      * @param Context $context,
      * @param LoggerInterface $logger
      * @param IntegrationServiceInterface $integrationService
@@ -69,7 +69,6 @@ class Button extends Action
         IntegrationServiceInterface $integrationService,
         OauthServiceInterface $oauthService,
         ConfigData $configData
-
     ) {
         $this->_logger = $logger;
         $this->_integrationService = $integrationService;
@@ -95,7 +94,7 @@ class Button extends Action
             $accessToken = $token->getToken();
         
             // Send request uninstall in saasler
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL , 'DELETE', json_encode(['Deleted'=>'yes']));
+            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL, 'DELETE', json_encode(['Deleted'=>'yes']));
             $response = $impactApiService->execute();
 
             // Delete integration record

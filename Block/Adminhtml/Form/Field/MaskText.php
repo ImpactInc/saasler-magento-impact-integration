@@ -1,13 +1,12 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Block\Adminhtml\Form\Field;
-
 
 use Magento\Framework\Escaper;
 
@@ -34,8 +33,7 @@ class MaskText extends \Magento\Framework\Data\Form\Element\Text
 
     private function maskText($data)
     {
-        if (isset($data["value"]))
-        {
+        if (isset($data["value"])) {
             $data["placeholder"] = str_repeat('*', strlen($data["value"])-4) . substr($data["value"], -4);
         }
         return $data;

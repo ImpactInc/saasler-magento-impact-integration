@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Utils\Impact;
 
@@ -45,7 +45,7 @@ class ImpactHttpClient
             // Request api
             $response = $client->request('GET', "/Advertisers/$accountSid/CompanyInformation", ['headers' => $headers]);
 
-        } catch(ClientException $exception){
+        } catch (ClientException $exception) {
             //exception is thrown for 400 level errors
             $response = $exception->getResponse();
 

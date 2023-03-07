@@ -1,15 +1,16 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Block\System\Config;
 
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Backend\Block\Template\Context;
+
 /**
  * Class Button
  *
@@ -24,7 +25,7 @@ class NewPage extends Field
 
     /**
      * Button constructor.
-     * 
+     *
      * @param Context $context
      * @param array $data
      */
@@ -38,7 +39,7 @@ class NewPage extends Field
  
     /**
      * Function render.
-     * 
+     *
      * @param Magento\Framework\Data\Form\Element\AbstractElement $element
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
@@ -49,7 +50,7 @@ class NewPage extends Field
 
     /**
      * Function _getElementHtml.
-     * 
+     *
      * @param Magento\Framework\Data\Form\Element\AbstractElement $element
      */
     protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
@@ -60,7 +61,7 @@ class NewPage extends Field
 
     /**
      * Function getAjaxUrl.
-     * 
+     *
      */
     public function getAjaxUrl()
     {
@@ -69,7 +70,7 @@ class NewPage extends Field
     
     /**
      * Function getButtonHtml.
-     * 
+     *
      */
     public function getButtonHtml()
     {
@@ -108,8 +109,7 @@ class NewPage extends Field
         $var = [];
         $var_renew = [];
         if (!empty($results)) {
-            foreach ($results as $data)
-            {
+            foreach ($results as $data) {
                 $var[] = $data['value'];
             }
             $var_renew['account_id'] = $var[0]??'';

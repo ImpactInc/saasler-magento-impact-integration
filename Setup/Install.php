@@ -1,17 +1,17 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Setup;
 
 use Magento\Framework\Setup\ModuleContextInterface;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Integration\Model\ConfigBasedIntegrationManager;
-use Impact\Integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService;
 use Magento\Store\Model\StoreManagerInterface;
 
 /**
@@ -27,8 +27,8 @@ class Install
     const API_ENDPOINT_INSTALL = 'https://saasler-magento-impact.herokuapp.com/webhooks/installation_notifications';
 
     /**
-    * @var \Magento\Store\Model\StoreManagerInterface $_storeManager
-    */
+     * @var \Magento\Store\Model\StoreManagerInterface $_storeManager
+     */
 
     /**
      * @var ConfigBasedIntegrationManager
@@ -54,8 +54,7 @@ class Install
     {
         $this->integrationManager->processIntegrationConfig(['ImpactIntegration']);
         // Send request uninstall in saasler
-        $impactApiService = new ImpactApiService('', static::API_ENDPOINT_INSTALL , 'POST', json_encode(['store_base_url'=>$this->_storeManager->getStore()->getBaseUrl()]));
+        $impactApiService = new ImpactApiService('', static::API_ENDPOINT_INSTALL, 'POST', json_encode(['store_base_url'=>$this->_storeManager->getStore()->getBaseUrl()]));
         $response = $impactApiService->execute();
-        
     }
 }

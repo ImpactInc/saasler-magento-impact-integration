@@ -1,16 +1,15 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Model;
 
 use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
-
 
 /**
  * Class ConfigData
@@ -55,7 +54,7 @@ class ConfigData
 
     /**
      * ConfigData constructor.
-     * 
+     *
      * @param Config $resourceConfig
      * @param Data $helper
      */
@@ -68,7 +67,7 @@ class ConfigData
 
     /**
      * Function to refresh Urls .
-     * 
+     *
      * @param Array $urls
      */
     public function refresh($urls)
@@ -84,11 +83,10 @@ class ConfigData
         foreach ($toUpdate as $key => $value) {
             $this->_resourceConfig->saveConfig($key, $value, 'default', 0);
         }
-
     }
 
     /**
-     * Function to clean Urls 
+     * Function to clean Urls
      */
     protected function cleanExistingConfigData()
     {

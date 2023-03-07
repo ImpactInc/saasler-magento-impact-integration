@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Block;
 
@@ -26,7 +26,7 @@ class IntegrationScript extends Template
 
     /**
      * IntegrationScript constructor.
-     * 
+     *
      * @param Context $context
      * @param Data $helperData
      */
@@ -41,7 +41,7 @@ class IntegrationScript extends Template
     }
 
     /**
-     * Function isActive 
+     * Function isActive
      *
      * @return bool
      */
@@ -54,7 +54,7 @@ class IntegrationScript extends Template
     }
 
     /**
-     * Function getScript 
+     * Function getScript
      *
      * @return string|null
      */

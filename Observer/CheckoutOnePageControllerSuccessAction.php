@@ -1,16 +1,16 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use Impact\Integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService;
 use Magento\Framework\Stdlib\CookieManagerInterface;
 use Impact\Integration\Helper\Data;
 
@@ -29,33 +29,32 @@ class CheckoutOnePageControllerSuccessAction implements ObserverInterface
     /**
      * @var helper
      */
-    private $helper; 
+    private $helper;
 
     /**
      * CheckoutOnePageControllerSuccessAction constructor.
      *
      * @param CookieManagerInterface $cookieManager
-     * @param Data $helper 
+     * @param Data $helper
      */
     public function __construct(
-        CookieManagerInterface $cookieManager,  
+        CookieManagerInterface $cookieManager,
         Data $helper
-    )
-    {
+    ) {
         $this->cookieManager = $cookieManager;
         $this->helper = $helper;
     }
 
     /**
-    * @param EventObserver $observer
-    * @return $this
-    */
+     * @param EventObserver $observer
+     * @return $this
+     */
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl())  && !is_null($this->helper->getConversionUrl()) ) {
+        if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl()) && !is_null($this->helper->getConversionUrl())) {
             // Get data from order
-            $order = $observer->getEvent()->getOrder();           
+            $order = $observer->getEvent()->getOrder();
             $entityId = $order->getEntityId();
             $irclickid = $this->cookieManager->getCookie('irclickid');
 
@@ -65,5 +64,5 @@ class CheckoutOnePageControllerSuccessAction implements ObserverInterface
             $responseContent = $responseBody->getContents();
         }
         return $this;
-    }    
+    }
 }
