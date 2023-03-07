@@ -1,16 +1,16 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Observer;
 
 use Magento\Framework\Event\Observer as EventObserver;
 use Magento\Framework\Event\ObserverInterface;
-use Impact\Integration\Service\ImpactApiService; 
+use Impact\Integration\Service\ImpactApiService;
 use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Impact\Integration\Helper\Data;
 
@@ -20,7 +20,8 @@ use Impact\Integration\Helper\Data;
  * @package Impact\Integration\Observer
  */
 class SalesOrderCreditmemoRefund implements ObserverInterface
-{   
+{
+
     /**
      * @var setup
      */
@@ -33,29 +34,28 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
     
     /**
      * SalesOrderCreditmemoRefund constructor.
-     * 
+     *
      * @param ModuleDataSetupInterface $setup
-     * @param Data $helper 
+     * @param Data $helper
      */
     public function __construct(
-        ModuleDataSetupInterface $setup, 
+        ModuleDataSetupInterface $setup,
         Data $helper
-    )
-    {
+    ) {
         $this->setup = $setup;
         $this->helper = $helper;
     }
 
     /**
-    * Execute Function
-    * 
-    * @param EventObserver $observer
-    * @return $this
-    */
+     * Execute Function
+     *
+     * @param EventObserver $observer
+     * @return $this
+     */
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled() && !empty($this->helper->getRefundUrl()) && !is_null($this->helper->getRefundUrl()) ) {
+        if ($this->helper->isEnabled() && !empty($this->helper->getRefundUrl()) && !is_null($this->helper->getRefundUrl())) {
             /**
              * @var \Magento\Sales\Model\Order\Creditmemo $creditMemo
              */
@@ -68,6 +68,6 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
             $responseBody = $response->getBody();
         }
         
-        return $this; 
-    }    
+        return $this;
+    }
 }

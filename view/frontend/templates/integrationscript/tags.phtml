@@ -1,15 +1,15 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 ?>
-<?php if($this->isActive()): ?>
+<?php if ($block->isActive()): ?>
 
-    <?php if(!empty($this->getScript())): ?>
-        <?= $this->getScript() ?>
+    <?php if (!empty($block->getScript())): ?>
+        <?= $block->getScript() ?>
     <?php else:?>
         <script type="text/javascript">
             (function() {

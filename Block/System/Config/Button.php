@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Block\System\Config;
 
@@ -25,7 +25,7 @@ class Button extends Field
     
     /**
      * Button constructor.
-     * 
+     *
      * @param Context $context
      * @param array $data
      */
@@ -38,7 +38,7 @@ class Button extends Field
  
     /**
      * Function render.
-     * 
+     *
      * @param Magento\Framework\Data\Form\Element\AbstractElement $element
      */
     public function render(\Magento\Framework\Data\Form\Element\AbstractElement $element)
@@ -49,7 +49,7 @@ class Button extends Field
 
     /**
      * Function _getElementHtml.
-     * 
+     *
      * @param Magento\Framework\Data\Form\Element\AbstractElement $element
      */
     protected function _getElementHtml(\Magento\Framework\Data\Form\Element\AbstractElement $element)
@@ -59,7 +59,7 @@ class Button extends Field
 
     /**
      * Function getAjaxUrl.
-     * 
+     *
      */
     public function getAjaxUrl()
     {
@@ -68,7 +68,7 @@ class Button extends Field
     
     /**
      * Function getButtonHtml.
-     * 
+     *
      */
     public function getButtonHtml()
     {

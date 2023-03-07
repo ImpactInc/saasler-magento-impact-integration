@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Observer;
 
@@ -181,7 +181,7 @@ class ConfigChange implements ObserverInterface
 
             if (!empty($accessToken)) {
                 // Send data with ImpactApiService class
-                $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_INTEGRATION , 'PUT', $body);
+                $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_INTEGRATION, 'PUT', $body);
                 $response = $impactApiService->execute();
 
                 // Get response with conversion and refund url
@@ -233,11 +233,11 @@ class ConfigChange implements ObserverInterface
     /**
      * Flush cache
      *
-     *  @return void
+     * @return void
      */
     private function flushCache():void
     {
-        $types = array('config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice');
+        $types = ['config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice'];
         foreach ($types as $type) {
             $this->cacheTypeList->cleanType($type);
         }
@@ -248,15 +248,14 @@ class ConfigChange implements ObserverInterface
 
     /**
      * Validate impact credentials
-     *  @param String $sid
-     *  @param String $token
-     *  @return void
+     * @param String $sid
+     * @param String $token
+     * @return void
      */
     private function validateImpactCredentials($sid, $token): void
     {
         $impactResponse = ImpactHttpClient::getCompanyInformation($sid, $token);
-        if (!$impactResponse)
-        {
+        if (!$impactResponse) {
             $this->deleteImpactCredentials('Cannot validate Impact Account SID and Auth Token');
         }
         if ($impactResponse->failed()) {
@@ -266,8 +265,8 @@ class ConfigChange implements ObserverInterface
 
     /**
      *  Delete impact credentials
-     *  @param String $message
-     *  @return void
+     * @param String $message
+     * @return void
      */
     private function deleteImpactCredentials($message)
     {

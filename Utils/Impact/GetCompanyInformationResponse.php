@@ -1,10 +1,10 @@
 <?php
 /**
-* Impact: Partnership Cloud for Magento
-*
-* @package     Impact_Integration
-* @copyright   Copyright (c) 2021 Impact. (https://impact.com)
-*/
+ * Impact: Partnership Cloud for Magento
+ *
+ * @package     Impact_Integration
+ * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
+ */
 
 namespace Impact\Integration\Utils\Impact;
 
@@ -40,7 +40,7 @@ class GetCompanyInformationResponse
 
     /**
      *  Failed function
-     *  @return bool
+     * @return bool
      */
     public function failed()
     {
@@ -49,7 +49,7 @@ class GetCompanyInformationResponse
 
     /**
      *  getData function
-     *  @return json_encode
+     * @return json_encode
      */
     public function getData()
     {
@@ -58,7 +58,7 @@ class GetCompanyInformationResponse
 
     /**
      *  parseXMLResponse function
-     *  @return void
+     * @return void
      */
     private function parseXMLResponse($body)
     {
