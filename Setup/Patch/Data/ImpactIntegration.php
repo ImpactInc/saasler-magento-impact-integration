@@ -5,22 +5,22 @@
 * @package     Impact_Integration
 * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
 */
+declare(strict_types=1);
 
+namespace Impact\Integration\Setup\Patch\Data;
 
-namespace Impact\Integration\Setup;
-
-use Magento\Framework\Setup\ModuleContextInterface;
-use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Magento\Integration\Model\ConfigBasedIntegrationManager;
-use Magento\Framework\Setup\InstallDataInterface;
 
-class InstallData implements InstallDataInterface
+/**
+ * This patch will install de Impact Integration
+ */
+class ImpactIntegration implements \Magento\Framework\Setup\Patch\DataPatchInterface
 {
     /**
      * @var ConfigBasedIntegrationManager
      */
 
-    private $integrationManager;
+     private $integrationManager;
 
     /**
      * @param ConfigBasedIntegrationManager $integrationManager
@@ -32,11 +32,26 @@ class InstallData implements InstallDataInterface
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
-
-    public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
+    public function apply()
     {
         $this->integrationManager->processIntegrationConfig(['ImpactIntegration']);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getAliases()
+    {
+        return [];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public static function getDependencies()
+    {
+        return [];
     }
 }
