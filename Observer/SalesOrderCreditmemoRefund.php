@@ -15,9 +15,8 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Impact\Integration\Helper\Data;
 
 /**
- * Class SalesOrderCreditmemoRefund
+ * Class SalesOrderCreditmemoRefund - Observer for SalesOrderCreditmemoRefund
  *
- * @package Impact\Integration\Observer
  */
 class SalesOrderCreditmemoRefund implements ObserverInterface
 {
@@ -31,7 +30,7 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
      * @var helper
      */
     private $helper;
-    
+
     /**
      * SalesOrderCreditmemoRefund constructor.
      *
@@ -55,7 +54,8 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled() && !empty($this->helper->getRefundUrl()) && !is_null($this->helper->getRefundUrl())) {
+        if ($this->helper->isEnabled()
+        && !empty($this->helper->getRefundUrl()) && $this->helper->getRefundUrl() !== null) {
             /**
              * @var \Magento\Sales\Model\Order\Creditmemo $creditMemo
              */
@@ -63,11 +63,16 @@ class SalesOrderCreditmemoRefund implements ObserverInterface
             $order = $creditMemo->getOrder();
             $entityId = $order->getEntityId();
 
-            $saaslerApiService = new ImpactApiService('', $this->helper->getRefundUrl(), 'POST', json_encode(['order_id' => $entityId]));
+            $saaslerApiService = new ImpactApiService(
+                '',
+                $this->helper->getRefundUrl(),
+                'POST',
+                json_encode(['order_id' => $entityId])
+            );
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
         }
-        
+
         return $this;
     }
 }

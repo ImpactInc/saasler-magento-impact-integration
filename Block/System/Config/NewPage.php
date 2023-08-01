@@ -13,8 +13,6 @@ use Magento\Backend\Block\Template\Context;
 
 /**
  * Class Button
- *
- * @package IImpact\Integration\Block\System\Config
  */
 class NewPage extends Field
 {
@@ -58,24 +56,21 @@ class NewPage extends Field
         return $this->_toHtml();
     }
 
-
     /**
      * Function getAjaxUrl.
-     *
      */
     public function getAjaxUrl()
     {
         return $this->getUrl('Impact_Integration/system_config/button');
     }
-    
+
     /**
      * Function getButtonHtml.
-     *
      */
     public function getButtonHtml()
     {
         $button = $this->getLayout()->createBlock(
-            'Magento\Backend\Block\Widget\Button'
+            \Magento\Backend\Block\Widget\Button::class
         )->setData(
             [
                 'id' => 'btnid',
@@ -83,14 +78,18 @@ class NewPage extends Field
                 'label' => __('Uninstall')
             ]
         );
-        
+
         return $button->toHtml();
     }
 
+    /**
+     * Function getButtonHtml.
+     */
     private function retrieveDataFromDb()
     {
         $object = \Magento\Framework\App\ObjectManager::getInstance();
-        $con = $object->get('Magento\Framework\App\ResourceConnection')->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT');
+        $con = $object->get(\Magento\Framework\App\ResourceConnection::class)
+        ->getConnection('\Magento\Framework\App\ResourceConnection::DEFAULT');
 
         $results = $con->fetchAll("
             SELECT * from core_config_data where path in ('impact_integration/existing_customer/account_sid',
@@ -104,6 +103,11 @@ class NewPage extends Field
         return $results;
     }
 
+    /**
+     * Function encapsulateValues.
+     *
+     * @param array $results
+     */
     private function encapsulateValues($results)
     {
         $var = [];

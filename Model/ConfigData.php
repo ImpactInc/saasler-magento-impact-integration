@@ -12,9 +12,8 @@ use Impact\Integration\Helper\Data;
 use Magento\Config\Model\ResourceModel\Config;
 
 /**
- * Class ConfigData
+ * Class ConfigData - Model for ConfigData
  *
- * @package Impact\Integration\Model
  */
 class ConfigData
 {
