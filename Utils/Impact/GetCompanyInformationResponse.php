@@ -9,9 +9,8 @@
 namespace Impact\Integration\Utils\Impact;
 
 /**
- * Class GetCompanyInformationResponse
+ * Class GetCompanyInformationResponse - Response for get company information
  *
- * @package Impact\Integration\Utils\Impact
  */
 class GetCompanyInformationResponse
 {
@@ -28,7 +27,7 @@ class GetCompanyInformationResponse
     /**
      * GetCompanyInformationResponse constructor
      *
-     * @param mixed $accountSid
+     * @param mixed $response
      */
     public function __construct($response)
     {
@@ -40,6 +39,7 @@ class GetCompanyInformationResponse
 
     /**
      *  Failed function
+     *
      * @return bool
      */
     public function failed()
@@ -48,7 +48,8 @@ class GetCompanyInformationResponse
     }
 
     /**
-     *  getData function
+     *  GetData function
+     *
      * @return json_encode
      */
     public function getData()
@@ -57,7 +58,9 @@ class GetCompanyInformationResponse
     }
 
     /**
-     *  parseXMLResponse function
+     *  ParseXMLResponse function
+     *
+     * @param String $body
      * @return void
      */
     private function parseXMLResponse($body)

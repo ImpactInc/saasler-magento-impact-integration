@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Impact: Partnership Cloud for Magento
  *
@@ -24,19 +25,17 @@ use Magento\Framework\App\Cache\TypeListInterface;
 use Magento\Framework\App\Cache\Frontend\Pool;
 
 /**
- * Class ConfigChange
+ * Class ConfigChange - Observer for ConfigChange
  *
- * @package Impact\Integration\Observer
  */
 class ConfigChange implements ObserverInterface
 {
     /**
      * API request endpoint integration
      */
-    const API_ENDPOINT_INTEGRATION = 'https://saasler-magento-impact.herokuapp.com/integration_setting';
+    protected const API_ENDPOINT_INTEGRATION = 'https://saasler-magento-impact.herokuapp.com/integration_setting';
 
     /**
-     * Integration service
      *
      * @var _integrationService \Magento\Integration\Api\IntegrationServiceInterface
      */
@@ -235,7 +234,7 @@ class ConfigChange implements ObserverInterface
      *
      * @return void
      */
-    private function flushCache():void
+    private function flushCache(): void
     {
         $types = ['config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice'];
         foreach ($types as $type) {
@@ -248,13 +247,15 @@ class ConfigChange implements ObserverInterface
 
     /**
      * Validate impact credentials
+     *
      * @param String $sid
      * @param String $token
      * @return void
      */
     private function validateImpactCredentials($sid, $token): void
     {
-        $impactResponse = ImpactHttpClient::getCompanyInformation($sid, $token);
+        $ImpactHttpClient = new ImpactHttpClient($sid, $token);
+        $impactResponse = $ImpactHttpClient->getCompanyInformation();
         if (!$impactResponse) {
             $this->deleteImpactCredentials('Cannot validate Impact Account SID and Auth Token');
         }
@@ -265,6 +266,7 @@ class ConfigChange implements ObserverInterface
 
     /**
      *  Delete impact credentials
+     *
      * @param String $message
      * @return void
      */

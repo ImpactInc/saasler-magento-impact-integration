@@ -17,6 +17,7 @@ class MaskText extends \Magento\Framework\Data\Form\Element\Text
      * @param CollectionFactory $factoryCollection
      * @param Escaper $escaper
      * @param array $data
+     * @return void
      */
     public function __construct(
         \Magento\Framework\Data\Form\Element\Factory $factoryElement,
@@ -31,6 +32,12 @@ class MaskText extends \Magento\Framework\Data\Form\Element\Text
         $this->setValue('');
     }
 
+    /**
+     * Mask text removing all but last 4 characters
+     *
+     * @param array $data
+     * @return array
+     */
     private function maskText($data)
     {
         if (isset($data["value"])) {

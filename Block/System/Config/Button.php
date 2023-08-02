@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Impact: Partnership Cloud for Magento
  *
@@ -9,12 +10,11 @@
 namespace Impact\Integration\Block\System\Config;
 
 use Magento\Config\Block\System\Config\Form\Field;
-use Magento\Backend\Block\Template\Context;
+use Magento\Backend\Block\Widget\Button as ButtonBlock;
 
 /**
- * Class Button
+ * Class Button - Button controller
  *
- * @package IImpact\Integration\Block\System\Config
  */
 class Button extends Field
 {
@@ -22,20 +22,7 @@ class Button extends Field
      * @var string $_template
      */
     protected $_template = 'Impact_Integration::system/config/button.phtml';
-    
-    /**
-     * Button constructor.
-     *
-     * @param Context $context
-     * @param array $data
-     */
-    public function __construct(
-        Context $context,
-        array $data = []
-    ) {
-        parent::__construct($context, $data);
-    }
- 
+
     /**
      * Function render.
      *
@@ -59,29 +46,26 @@ class Button extends Field
 
     /**
      * Function getAjaxUrl.
-     *
      */
     public function getAjaxUrl()
     {
         return $this->getUrl('Impact_Integration/system_config/button');
     }
-    
+
     /**
      * Function getButtonHtml.
-     *
      */
     public function getButtonHtml()
     {
-        $button = $this->getLayout()->createBlock(
-            'Magento\Backend\Block\Widget\Button'
-        )->setData(
+        $button = $this->getLayout()->createBlock(ButtonBlock::class)
+        ->setData(
             [
                 'id' => 'btnid',
                 'class' => 'primary',
                 'label' => __('Uninstall'),
             ]
         );
- 
+
         return $button->toHtml();
     }
 }

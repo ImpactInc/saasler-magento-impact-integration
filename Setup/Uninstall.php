@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Impact: Partnership Cloud for Magento
  *
@@ -16,22 +17,21 @@ use Magento\Framework\Setup\ModuleDataSetupInterface;
 use Impact\Integration\Model\ConfigData;
 
 /**
- * Class Uninstall
+ * Class Uninstall - Uninstall module
  *
- * @package Impact\Integration\Setup
  */
 class Uninstall implements \Magento\Framework\Setup\UninstallInterface
 {
-     /**
+    /**
      * API request endpoint integration
      */
-    const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
+    protected const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
 
-     /**
-      * Integration service
-      *
-      * @var \Magento\Integration\Api\IntegrationServiceInterface
-      */
+    /**
+     *
+     *
+     * @var \Magento\Integration\Api\IntegrationServiceInterface
+     */
     private $_integrationService;
 
     /**
@@ -64,6 +64,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
      * @param IntegrationServiceInterface $integrationService
      * @param OauthServiceInterface $oauthService
      * @param ModuleDataSetupInterface $setup
+     * @param ConfigData $configData
      */
     public function __construct(
         Config $Config,
@@ -96,17 +97,21 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
             // Get accesstoken from integration
             $token = $this->oauthService->getAccessToken($integration->getConsumerId());
             $accessToken = $token->getToken();
-        
+
             // Send request uninstall in saasler
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL, 'DELETE', json_encode(['Deleted'=>'yes']));
+            $impactApiService = new ImpactApiService(
+                $accessToken,
+                static::API_ENDPOINT_UNINSTALL,
+                'DELETE',
+                json_encode(['Deleted' => 'yes'])
+            );
             $response = $impactApiService->execute();
-            
+
             $installer = $setup;
             $installer->startSetup();
-            
+
             // Delete integration record
             $integration->delete();
-            ;
 
             // Delete Impact Credentials
             $this->configData->deleteImpactIntegrationConfigData();

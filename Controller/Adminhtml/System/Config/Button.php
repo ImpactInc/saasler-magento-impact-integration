@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Impact: Partnership Cloud for Magento
  *
@@ -7,7 +8,7 @@
  */
 
 namespace Impact\Integration\Controller\Adminhtml\System\Config;
- 
+
 use Impact\Integration\Service\ImpactApiService;
 use Magento\Integration\Api\IntegrationServiceInterface;
 use Magento\Integration\Api\OauthServiceInterface;
@@ -17,19 +18,17 @@ use Magento\Backend\App\Action\Context;
 use Magento\Backend\App\Action;
 
 /**
- * Class Button
+ * Class Button - Button controller
  *
- * @package Impact\Integration\Controller\Adminhtml\System\Config
  */
 class Button extends Action
 {
     /**
      * API request endpoint integration
      */
-    const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
+    protected const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
 
     /**
-     * Integration service
      *
      * @var \Magento\Integration\Api\IntegrationServiceInterface
      */
@@ -57,7 +56,7 @@ class Button extends Action
     /**
      * Button constructor.
      *
-     * @param Context $context,
+     * @param Context $context
      * @param LoggerInterface $logger
      * @param IntegrationServiceInterface $integrationService
      * @param OauthServiceInterface $oauthService
@@ -92,9 +91,14 @@ class Button extends Action
             // Get accesstoken from integration
             $token = $this->oauthService->getAccessToken($integration->getConsumerId());
             $accessToken = $token->getToken();
-        
+
             // Send request uninstall in saasler
-            $impactApiService = new ImpactApiService($accessToken, static::API_ENDPOINT_UNINSTALL, 'DELETE', json_encode(['Deleted'=>'yes']));
+            $impactApiService = new ImpactApiService(
+                $accessToken,
+                static::API_ENDPOINT_UNINSTALL,
+                'DELETE',
+                json_encode(['Deleted' => 'yes'])
+            );
             $response = $impactApiService->execute();
 
             // Delete integration record

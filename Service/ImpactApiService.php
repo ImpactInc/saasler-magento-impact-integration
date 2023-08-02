@@ -11,18 +11,17 @@ namespace Impact\Integration\Service;
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\GuzzleException;
+use Psr\Log\LoggerInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 
 /**
- * Class ImpactApiService
+ * Class ImpactApiService - Service for Impact API
  *
- * @package Impact\Integration\Service
  */
 class ImpactApiService
 {
     /**
      *
-     * Access Token
      *
      * @var accessToken
      */
@@ -102,7 +101,8 @@ class ImpactApiService
             $request = new Request($this->method, $apiRequest, $headers, $this->body);
             $response = $this->client->send($request, ['timeout' => 5]);
         } catch (GuzzleException $exception) {
-            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info($exception->getMessage());
+            $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(LoggerInterface::class);
+            $logger->info($exception->getMessage());
         }
         return $response;
     }

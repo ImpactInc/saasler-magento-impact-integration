@@ -2,7 +2,7 @@
     "name": "impact_tech/module-magento-integration",
     "description": "Magento Impact Integration",
     "type": "magento2-module",
-    "version": "2.6.1",
+    "version": "2.6.2",
     "license": [
       "OSL-3.0"
     ],

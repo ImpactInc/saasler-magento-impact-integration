@@ -13,14 +13,38 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
 use GuzzleHttp\Exception\ConnectException;
 use GuzzleHttp\Exception\ClientException;
+use Psr\Log\LoggerInterface;
 
 /**
- * Class ImpactHttpClient
+ * Class ImpactHttpClient - Http client for Impact API
  *
- * @package Impact\Integration\Utils\Impact
  */
 class ImpactHttpClient
 {
+
+    /**
+     *
+     * @var accountSid
+     */
+    private $accountSid;
+    /**
+     *
+     * @var authToken
+     */
+    private $authToken;
+
+    /**
+     * ImpactHttpClient constructor.
+     *
+     * @param String $accountSid
+     * @param String $authToken
+     */
+    public function __construct($accountSid, $authToken)
+    {
+        $this->accountSid = $accountSid;
+        $this->authToken = $authToken;
+    }
+
     /**
      * Get company information
      *
@@ -29,8 +53,10 @@ class ImpactHttpClient
      * @return mixed
      * GetCompanyInformationResponse or false
      */
-    public static function getCompanyInformation($accountSid, $authToken)
+    public function getCompanyInformation()
     {
+        $accountSid = $this->accountSid;
+        $authToken = $this->authToken;
         $response = [];
         $endpoint = "https://api.impact.com/";
         // New GuzzleHttp Client
@@ -51,7 +77,8 @@ class ImpactHttpClient
 
         } catch (ConnectException $exception) {
             //exception is thrown in the event of a networking error.
-            \Magento\Framework\App\ObjectManager::getInstance()->get('Psr\Log\LoggerInterface')->info($exception->getMessage());
+            $logger = \Magento\Framework\App\ObjectManager::getInstance()->get(LoggerInterface::class);
+            $logger->info($exception->getMessage());
             return false;
         }
 

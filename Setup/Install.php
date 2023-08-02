@@ -17,14 +17,13 @@ use Magento\Store\Model\StoreManagerInterface;
 /**
  * Class InstallData
  *
- * @package Impact\Integration\Setup
  */
 class Install
 {
     /**
      * API request endpoint install
      */
-    const API_ENDPOINT_INSTALL = 'https://saasler-magento-impact.herokuapp.com/webhooks/installation_notifications';
+    protected const API_ENDPOINT_INSTALL = 'https://saasler-magento-impact.herokuapp.com/webhooks/installation_notifications';
 
     /**
      * @var \Magento\Store\Model\StoreManagerInterface $_storeManager
@@ -38,8 +37,8 @@ class Install
 
     /**
      * @param ConfigBasedIntegrationManager $integrationManager
+     * @param StoreManagerInterface $_storeManager
      */
-
     public function __construct(ConfigBasedIntegrationManager $integrationManager, StoreManagerInterface $_storeManager)
     {
         $this->integrationManager = $integrationManager;
@@ -47,14 +46,19 @@ class Install
     }
 
     /**
-     * {@inheritdoc}
+     * @inheritdoc
      */
 
     public function install(ModuleDataSetupInterface $setup, ModuleContextInterface $context)
     {
         $this->integrationManager->processIntegrationConfig(['ImpactIntegration']);
         // Send request uninstall in saasler
-        $impactApiService = new ImpactApiService('', static::API_ENDPOINT_INSTALL, 'POST', json_encode(['store_base_url'=>$this->_storeManager->getStore()->getBaseUrl()]));
+        $impactApiService = new ImpactApiService(
+            '',
+            static::API_ENDPOINT_INSTALL,
+            'POST',
+            json_encode(['store_base_url'=>$this->_storeManager->getStore()->getBaseUrl()])
+        );
         $response = $impactApiService->execute();
     }
 }

@@ -17,7 +17,7 @@ require([
     function callUninstall() {
         params = {
         };
-        new Ajax.Request('<?php echo $block->getAjaxUrl() ?>', {
+        new Ajax.Request('<?= $block->escapeHtml($block->getAjaxUrl()) ?>', {
             parameters:     params,
             loaderArea:     false,
             asynchronous:   true,
@@ -48,9 +48,9 @@ require([
 });
 </script>
 
-<?php echo $block->getButtonHtml() ?>
+<?= $block->getButtonHtml() ?>
 <span class="collect-indicator" id="collect_span">
-    <img class="processing" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?php echo $block->getViewFileUrl('images/process_spinner.gif') ?>"/>
-    <img class="collected" hidden="hidden" alt="Collected" style="margin:-3px 5px" src="<?php echo $block->getViewFileUrl('images/rule_component_apply.gif') ?>"/>
+    <img class="processing" hidden="hidden" alt="Collecting" style="margin:0 5px" src="<?= $block->escapeHtml($block->getViewFileUrl('images/process_spinner.gif')) ?>"/>
+    <img class="collected" hidden="hidden" alt="Collected" style="margin:-3px 5px" src="<?= $block->escapeHtml($block->getViewFileUrl('images/rule_component_apply.gif')) ?>"/>
     <span id="collect_message_span"></span>
 </span>

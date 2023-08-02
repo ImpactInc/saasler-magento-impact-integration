@@ -13,9 +13,8 @@ use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
 
 /**
- * Class IntegrationScript
+ * Class IntegrationScript - Integration script block
  *
- * @package Impact\Integration\Block
  */
 class IntegrationScript extends Template
 {

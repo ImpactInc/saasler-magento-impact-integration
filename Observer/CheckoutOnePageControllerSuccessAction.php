@@ -15,9 +15,8 @@ use Magento\Framework\Stdlib\CookieManagerInterface;
 use Impact\Integration\Helper\Data;
 
 /**
- * Class CheckoutOnePageControllerSuccessAction
+ * Class CheckoutOnePageControllerSuccessAction - Observer for CheckoutOnePageControllerSuccessAction
  *
- * @package Impact\Integration\Observer
  */
 class CheckoutOnePageControllerSuccessAction implements ObserverInterface
 {
@@ -46,19 +45,27 @@ class CheckoutOnePageControllerSuccessAction implements ObserverInterface
     }
 
     /**
+     * Execute Function - Send conversion to Impact
+     *
      * @param EventObserver $observer
      * @return $this
      */
     public function execute(EventObserver $observer)
     {
         // Validate if module is enable
-        if ($this->helper->isEnabled() && !empty($this->helper->getConversionUrl()) && !is_null($this->helper->getConversionUrl())) {
+        if ($this->helper->isEnabled()
+        && !empty($this->helper->getConversionUrl()) && $this->helper->getConversionUrl() !== null) {
             // Get data from order
             $order = $observer->getEvent()->getOrder();
             $entityId = $order->getEntityId();
             $irclickid = $this->cookieManager->getCookie('irclickid');
 
-            $saaslerApiService = new ImpactApiService('', $this->helper->getConversionUrl(), 'POST', json_encode(['order_id' => $entityId, 'irclickid' => $irclickid]));
+            $saaslerApiService = new ImpactApiService(
+                '',
+                $this->helper->getConversionUrl(),
+                'POST',
+                json_encode(['order_id' => $entityId, 'irclickid' => $irclickid])
+            );
             $response = $saaslerApiService->execute();
             $responseBody = $response->getBody();
             $responseContent = $responseBody->getContents();
