@@ -23,7 +23,7 @@ class Install
     /**
      * API request endpoint install
      */
-    protected const API_ENDPOINT_INSTALL = 'https://saasler-magento-impact.herokuapp.com/webhooks/installation_notifications';
+    protected const API_ENDPOINT_INSTALL = 'https://magento-integration.impact.com/webhooks/installation_notifications';
 
     /**
      * @var \Magento\Store\Model\StoreManagerInterface $_storeManager
