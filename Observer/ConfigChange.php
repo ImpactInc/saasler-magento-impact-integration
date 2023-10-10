@@ -33,7 +33,7 @@ class ConfigChange implements ObserverInterface
     /**
      * API request endpoint integration
      */
-    protected const API_ENDPOINT_INTEGRATION = 'https://saasler-magento-impact.herokuapp.com/integration_setting';
+    protected const API_ENDPOINT_INTEGRATION = 'https://magento-integration.impact.com/integration_setting';
 
     /**
      *

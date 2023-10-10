@@ -8,7 +8,7 @@
 <integrations>
     <integration name="ImpactIntegration">
        <email>techpartners@impact.com</email>
-       <endpoint_url>https://saasler-magento-impact.herokuapp.com/auth/magento/callback</endpoint_url>
-       <identity_link_url>https://saasler-magento-impact.herokuapp.com/sessions/new</identity_link_url>
+       <endpoint_url>https://magento-integration.impact.com/auth/magento/callback</endpoint_url>
+       <identity_link_url>https://magento-integration.impact.com/sessions/new</identity_link_url>
     </integration>
  </integrations>

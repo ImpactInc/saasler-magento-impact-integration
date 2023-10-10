@@ -25,7 +25,7 @@ class Uninstall implements \Magento\Framework\Setup\UninstallInterface
     /**
      * API request endpoint integration
      */
-    protected const API_ENDPOINT_UNINSTALL = 'https://saasler-magento-impact.herokuapp.com/uninstall';
+    protected const API_ENDPOINT_UNINSTALL = 'https://magento-integration.impact.com/uninstall';
 
     /**
      *
