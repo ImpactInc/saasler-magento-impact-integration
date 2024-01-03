@@ -88,7 +88,7 @@
                 <field id="additional_comment" translate="label comment" type="label" sortOrder="60" showInDefault="1">
                     <label><![CDATA[<strong> New Customer </strong>]]></label>
                     <comment><![CDATA[If you are new to Impact, <a target="_blank"
-                    href="http://impact-referral-partnerships.sjv.io/adobecommerce">click here</a> to learn how impact.com can help grow and optimize your Partnership program.]]></comment>
+                    href="https://app.impact.com/signup/create-brand-flow.ihtml?edition=starter__adobe_commerce?utm_source=adobe-commerce&utm_medium=ecommerce&utm_content=CTA&utm_campaign=adobe-commerce-app-lp">click here</a> to learn how impact.com can help grow and optimize your Partnership program.]]></comment>
                     <frontend_model>Magento\Analytics\Block\Adminhtml\System\Config\AdditionalComment</frontend_model>
                 </field>
             </group>
