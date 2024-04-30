@@ -12,7 +12,7 @@ namespace Impact\Integration\Observer;
 use Impact\Integration\Model\ConfigData;
 use Impact\Integration\Utils\Impact\ImpactHttpClient;
 use Magento\Framework\Event\ObserverInterface;
-use Magento\Framework\Event\Observer as EventObserver;
+use Magento\Framework\Event\Observer;
 use Magento\Framework\App\RequestInterface;
 use Impact\Integration\Service\ImpactApiService;
 use Magento\Integration\Api\IntegrationServiceInterface;
@@ -82,6 +82,24 @@ class ConfigChange implements ObserverInterface
     private $configData;
 
     /**
+     * Manager for cache types
+     *
+     * Holds an instance of TypeListInterface to manage cache types settings and statuses.
+     *
+     * @var TypeListInterface
+     */
+    protected $cacheTypeList;
+
+    /**
+     * Pool of cache frontends
+     *
+     * Provides access to the pool of cache frontend instances to manage individual cache frontends.
+     *
+     * @var Pool
+     */
+    protected $cacheFrontendPool;
+
+    /**
      * ConfigChange constructor.
      * @param RequestInterface $request
      * @param IntegrationServiceInterface $integrationService
@@ -120,7 +138,7 @@ class ConfigChange implements ObserverInterface
      *
      * @param Observer $observer
      */
-    public function execute(EventObserver $observer)
+    public function execute(Observer $observer)
     {
         // Validate if module is enable
         if ($this->helper->isEnabled()) {
@@ -236,7 +254,7 @@ class ConfigChange implements ObserverInterface
      */
     private function flushCache(): void
     {
-        $types = ['config','layout','block_html','collections','reflection','db_ddl','eav','config_integration','config_integration_api','full_page','translate','config_webservice'];
+        $types = ['config', 'layout', 'block_html', 'collections', 'reflection', 'db_ddl', 'eav', 'config_integration', 'config_integration_api', 'full_page', 'translate', 'config_webservice'];
         foreach ($types as $type) {
             $this->cacheTypeList->cleanType($type);
         }

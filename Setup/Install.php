@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Impact: Partnership Cloud for Magento
  *
@@ -26,23 +27,28 @@ class Install
     protected const API_ENDPOINT_INSTALL = 'https://magento-integration.impact.com/webhooks/installation_notifications';
 
     /**
-     * @var \Magento\Store\Model\StoreManagerInterface $_storeManager
+     * Store manager instance
+     *
+     * This property holds the store manager which provides functionality to manage
+     * stores in Magento.
+     *
+     * @var \Magento\Store\Model\StoreManagerInterface
      */
+    protected $storeManager;
 
     /**
      * @var ConfigBasedIntegrationManager
      */
-
     private $integrationManager;
 
     /**
      * @param ConfigBasedIntegrationManager $integrationManager
-     * @param StoreManagerInterface $_storeManager
+     * @param StoreManagerInterface $storeManager
      */
-    public function __construct(ConfigBasedIntegrationManager $integrationManager, StoreManagerInterface $_storeManager)
+    public function __construct(ConfigBasedIntegrationManager $integrationManager, StoreManagerInterface $storeManager)
     {
         $this->integrationManager = $integrationManager;
-        $this->_storeManager = $_storeManager;
+        $this->storeManager = $storeManager;
     }
 
     /**
@@ -57,7 +63,7 @@ class Install
             '',
             static::API_ENDPOINT_INSTALL,
             'POST',
-            json_encode(['store_base_url'=>$this->_storeManager->getStore()->getBaseUrl()])
+            json_encode(['store_base_url' => $this->storeManager->getStore()->getBaseUrl()])
         );
         $response = $impactApiService->execute();
     }
