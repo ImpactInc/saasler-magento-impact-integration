@@ -1,17 +1,19 @@
 {
-    "name": "impact_tech/module-magento-integration",
-    "description": "Magento Impact Integration",
-    "type": "magento2-module",
-    "version": "2.6.5",
-    "license": [
-      "OSL-3.0"
+  "name": "impact_tech/module-magento-integration",
+  "description": "Magento Impact Integration",
+  "type": "magento2-module",
+  "version": "2.6.6",
+  "license": [
+    "OSL-3.0"
+  ],
+  "autoload": {
+    "files": [
+      "registration.php"
     ],
-    "autoload": {
-       "files": [ "registration.php" ],
-       "psr-4": {
-          "Impact\\Integration\\": ""
-       }
-    },
-    "minimum-stability": "dev",
-    "prefer-stable": true
- }
+    "psr-4": {
+      "Impact\\Integration\\": ""
+    }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
+}
