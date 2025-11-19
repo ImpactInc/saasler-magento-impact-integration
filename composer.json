@@ -2,10 +2,13 @@
   "name": "impact_tech/module-magento-integration",
   "description": "Magento Impact Integration",
   "type": "magento2-module",
-  "version": "2.6.6",
+  "version": "2.6.7",
   "license": [
     "OSL-3.0"
   ],
+  "require": {
+    "php": "~8.3.0||~8.4.0"
+  },
   "autoload": {
     "files": [
       "registration.php"
