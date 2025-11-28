@@ -6,42 +6,54 @@
  * @package     Impact_Integration
  * @copyright   Copyright (c) 2021 Impact. (https://impact.com)
  */
+
+/** @var \Magento\Framework\View\Element\Template $block */
+/** @var \Magento\Framework\View\Helper\SecureHtmlRenderer $secureRenderer */
 ?>
+
 <?php if ($block->isActive()): ?>
+		<?php
+		$scriptString = '';
 
-    <?php if (!empty($block->getScript())): ?>
-        <?= $block
-            ->getLayout()
-            ->createBlock(\Magento\Framework\View\Element\Text::class)
-            ->setText($block->getScript())
-            ->toHtml();
-        ?>
-    <?php else: ?>
-        <script>
-            (function() {
-                function getParameterByName(name, url) {
-                    if (!url) url = window.location.href;
-                    name = name.replace(/[\[\]]/g, '\\$&');
-                    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                        results = regex.exec(url);
-                    if (!results) return null;
-                    if (!results[2]) return '';
-                    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-                }
+		if (!empty($block->getScript())) {
+			$rawScript = $block->getScript();
 
-                function setCookie(cookieName, cookieValue, daysUntilExpiration) {
-                    const date = new Date();
-                    date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
-                    const expires = "expires=" + date.toUTCString();
-                    document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/;secure";
-                }
+			// Remove <script> and </script> tags (case insensitive)
+			$scriptString = preg_replace('/<script[^>]*>|<\/script>/i', '', $rawScript);
+		} else {
+			// CASE 2: Default Cookie Logic
+			// PURE JS only. No <script> tags here.
+			$scriptString = <<<JS
+				(function() {
+					function getParameterByName(name, url) {
+						if (!url) url = window.location.href;
+						name = name.replace(/[\[\]]/g, '\\$&');
+						var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+								results = regex.exec(url);
+						if (!results) return null;
+						if (!results[2]) return '';
+						return decodeURIComponent(results[2].replace(/\+/g, ' '));
+					}
 
-                function onPageLoad() {
-                    const irclickid = getParameterByName('irclickid');
-                    if (irclickid) setCookie('irclickid', irclickid, 30);
-                }
-                onPageLoad();
-            })();
-        </script>
-    <?php endif; ?>
+					function setCookie(cookieName, cookieValue, daysUntilExpiration) {
+						const date = new Date();
+						date.setTime(date.getTime() + (daysUntilExpiration * 24 * 60 * 60 * 1000));
+						const expires = "expires=" + date.toUTCString();
+						document.cookie = cookieName + "=" + cookieValue + ";" + "SameSite=None;" + expires + ";path=/;secure";
+					}
+
+					function onPageLoad() {
+						const irclickid = getParameterByName('irclickid');
+						if (irclickid) setCookie('irclickid', irclickid, 30);
+					}
+					onPageLoad();
+				})();
+			JS;
+		}
+		?>
+
+		<?php if (!empty(trim($scriptString))): ?>
+				<?= /* @noEscape */ $secureRenderer->renderTag('script', [], $scriptString, false) ?>
+		<?php endif; ?>
+
 <?php endif; ?>
