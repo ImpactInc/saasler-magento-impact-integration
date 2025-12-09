@@ -3,9 +3,18 @@
     <policies>
         <policy id="script-src">
             <values>
-                <value id="impactcdn" type="host">utt.impactcdn.com</value>
+                <value id="impact_cdn" type="host">*.impactcdn.com</value>
+                <value id="impact_site" type="host">*.impct.site</value>
+                <value id="impact_ssqt" type="host">*.ssqt.io</value>
+            </values>
+        </policy>
+
+        <policy id="connect-src">
+            <values>
+                <value id="impact_track" type="host">*.impct.site</value>
+                <value id="impact_cdn_connect" type="host">*.impactcdn.com</value>
+                <value id="impact_ssqt_connect" type="host">*.ssqt.io</value>
             </values>
         </policy>
     </policies>
 </csp_whitelist>
-
